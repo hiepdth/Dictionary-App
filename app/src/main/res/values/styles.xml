@@ -8,4 +8,11 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <!--Text tablayout-->
+    <style name="TextTab">
+        <item name="android:fontFamily">@font/promptbold</item>
+        <item name="android:textColor">#000</item>
+        <item name="android:textSize">12dp</item>
+    </style>
+
 </resources>
