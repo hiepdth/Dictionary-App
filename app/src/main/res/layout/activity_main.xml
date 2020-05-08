@@ -2,60 +2,67 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/mViewPager"
-        android:layout_above="@id/view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    </androidx.viewpager.widget.ViewPager>
+        android:layout_height="match_parent"
+        android:layout_above="@id/view"/>
+
     <View
         android:id="@+id/view"
-        android:layout_above="@id/tabBar"
         android:layout_width="match_parent"
         android:layout_height="1dp"
+        android:layout_above="@id/tabBar"
         android:background="#ccc" />
+
     <LinearLayout
-        android:padding="10dp"
-        android:background="#fff"
         android:id="@+id/tabBar"
-        android:orientation="horizontal"
-        android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="#fff"
+        android:orientation="horizontal"
+        android:padding="10dp"
         android:weightSum="3">
+
         <LinearLayout
-            android:gravity="center"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:gravity="center">
+
             <ImageView
-                android:scaleType="centerCrop"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@mipmap/history"/>
+                android:scaleType="centerCrop"
+                android:src="@mipmap/history" />
         </LinearLayout>
 
         <LinearLayout
-            android:gravity="center"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:gravity="center">
+
             <ImageView
-                android:scaleType="centerCrop"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:src="@mipmap/search_2"/>
+                android:scaleType="centerCrop"
+                android:src="@mipmap/search_2" />
         </LinearLayout>
+
         <LinearLayout
-            android:gravity="center"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:gravity="center">
+
             <ImageView
-                android:scaleType="centerCrop"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@mipmap/bookmark"/>
+                android:scaleType="centerCrop"
+                android:src="@mipmap/bookmark" />
         </LinearLayout>
     </LinearLayout>
 </RelativeLayout>

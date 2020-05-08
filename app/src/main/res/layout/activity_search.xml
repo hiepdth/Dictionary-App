@@ -24,8 +24,8 @@
             android:id="@+id/edSearch"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginHorizontal="15dp"
-            android:layout_marginLeft="17dp"
+            android:layout_marginHorizontal="20dp"
+            android:layout_toLeftOf="@id/btnSearch"
             android:layout_toRightOf="@id/btnBack"
             android:background="@drawable/corner_search_edittext_unselect"
             android:fontFamily="@font/promptlight"
@@ -37,13 +37,22 @@
             android:textStyle="bold" />
 
         <ImageView
+            android:layout_marginRight="30dp"
             android:id="@+id/btnVoice"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@id/btnSearch"
+            android:src="@mipmap/micro"
+            android:tint="#000" />
+
+        <ImageView
+            android:id="@+id/btnSearch"
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="25dp"
-            android:src="@mipmap/micro"
+            android:src="@mipmap/search"
             android:tint="#000" />
     </RelativeLayout>
 

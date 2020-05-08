@@ -28,7 +28,7 @@ import java.util.ArrayList;
 public class SearchActivity extends AppCompatActivity {
     private AutoCompleteTextView edSearch;
     private ImageView btnBack;
-    private ImageView btnVoice;
+    private ImageView btnVoice, btnSearch;
     private RecyclerView mRecyclerView;
     private LinearLayout empty;
 
@@ -37,6 +37,8 @@ public class SearchActivity extends AppCompatActivity {
     private ArrayList<Diction>mListWord;
 
     private DBHelper helper;
+
+    private boolean isDeletable;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +55,7 @@ public class SearchActivity extends AppCompatActivity {
         btnBack = findViewById(R.id.btnBack);
         edSearch = findViewById(R.id.edSearch);
         btnVoice = findViewById(R.id.btnVoice);
+        btnSearch = findViewById(R.id.btnSearch);
         mRecyclerView = findViewById(R.id.mRecyclerView);
         empty = findViewById(R.id.empty);
 
@@ -113,8 +116,10 @@ public class SearchActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 int length = edSearch.getText().toString().trim().length();
                 if (length == 0){
+                    isDeletable = false;
                     btnVoice.setImageResource(R.mipmap.micro);
                 } else {
+                    isDeletable = true;
                     btnVoice.setImageResource(R.mipmap.delete);
                 }
             }
@@ -122,6 +127,20 @@ public class SearchActivity extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable s) {
 
+            }
+        });
+        btnVoice.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (isDeletable){
+                    edSearch.setText("");
+                }
+            }
+        });
+        btnSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                Intent intent = new Intent();
             }
         });
     }
