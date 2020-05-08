@@ -1,44 +1,70 @@
 package com.hiepdt.dicitonaryapp.main;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.viewpager.widget.ViewPager;
-
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 
-import com.google.android.material.tabs.TabLayout;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.hiepdt.dicitonaryapp.R;
-import com.hiepdt.dicitonaryapp.bookmark.BookmarkFragment;
-import com.hiepdt.dicitonaryapp.history.HistoryFragment;
-import com.hiepdt.dicitonaryapp.search.SearchFragment;
-
-import java.util.ArrayList;
+import com.hiepdt.dicitonaryapp.bookmark.BookmarkActivity;
+import com.hiepdt.dicitonaryapp.history.HistoryActivity;
+import com.hiepdt.dicitonaryapp.search.SearchActivity;
 
 public class MainActivity extends AppCompatActivity {
 
-    ViewPagerAdapter mainViewPagerAdapter;
-    ArrayList<Fragment> mListFragment;
-    ViewPager mViewPager;
-
+    private LinearLayout btnSearch;
+    private EditText edSearch;
+    private ImageView btnHis, btnMark;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         getSupportActionBar().hide();
+        init();
+        action();
 
-        mViewPager = findViewById(R.id.mViewPager);
+    }
 
+    private void init() {
+        btnSearch = findViewById(R.id.btnSearch);
+        edSearch = findViewById(R.id.edSearch);
+        btnHis = findViewById(R.id.btnHis);
+        btnMark = findViewById(R.id.btnMark);
+    }
 
-        mListFragment = new ArrayList<>();
-        mListFragment.add(new HistoryFragment());
-        mListFragment.add(new SearchFragment());
-        mListFragment.add(new BookmarkFragment());
-
-
-        //------------Set ViewPager --------------------//
-        mainViewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), mListFragment);
-        mViewPager.setAdapter(mainViewPagerAdapter);
-        mViewPager.setCurrentItem(1);
+    private void action() {
+        btnSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, SearchActivity.class);
+                startActivity(intent);
+            }
+        });
+        edSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, SearchActivity.class);
+                startActivity(intent);
+            }
+        });
+        btnHis.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, HistoryActivity.class);
+                startActivity(intent);
+            }
+        });
+        btnMark.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, BookmarkActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 }

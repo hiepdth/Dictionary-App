@@ -37,11 +37,11 @@
             android:textStyle="bold" />
 
         <ImageView
-            android:layout_marginRight="30dp"
             android:id="@+id/btnVoice"
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_centerVertical="true"
+            android:layout_marginRight="30dp"
             android:layout_toLeftOf="@id/btnSearch"
             android:src="@mipmap/micro"
             android:tint="#000" />
@@ -103,5 +103,4 @@
                 android:textSize="16dp" />
         </LinearLayout>
     </RelativeLayout>
-
 </LinearLayout>

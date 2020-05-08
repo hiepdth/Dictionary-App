@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <!--Header-->
+    <RelativeLayout
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="15dp">
+
+        <ImageView
+            android:id="@+id/btnBack"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@mipmap/back"
+            android:tint="#000" />
+
+        <TextView
+            android:id="@+id/tvWord"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:ellipsize="end"
+            android:fontFamily="@font/promptbold"
+            android:gravity="center"
+            android:maxLines="1"
+            android:text="Sổ tay"
+            android:textSize="16dp"
+            android:textColor="#000" />
+
+    </RelativeLayout>
+    <View
+        android:layout_below="@id/header"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#ccc"/>
+    <LinearLayout
+        android:layout_below="@id/header"
+        android:id="@+id/linearEmpty"
+        android:visibility="invisible"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/history"
+            android:tint="#666"/>
+        <TextView
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:textSize="16dp"
+            android:text="Lịch sử tìm kiếm rỗng."
+            android:textColor="#666"
+            android:fontFamily="@font/promptlight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_marginTop="20dp"
+        android:id="@+id/mRecyclerView"
+        android:layout_below="@id/header"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+</RelativeLayout>
