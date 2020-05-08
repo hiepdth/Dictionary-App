@@ -11,16 +11,16 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.hiepdt.dicitonaryapp.R;
-import com.hiepdt.dicitonaryapp.models.Word;
+import com.hiepdt.dicitonaryapp.models.Diction;
 import com.hiepdt.dicitonaryapp.search.result.ResultActivity;
 
 import java.util.ArrayList;
 
 public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder> {
     Context mContext;
-    ArrayList<Word> mListMes;
+    ArrayList<Diction> mListMes;
 
-    public SearchAdapter(Context mContext, ArrayList<Word> mListMes) {
+    public SearchAdapter(Context mContext, ArrayList<Diction> mListMes) {
         this.mContext = mContext;
         this.mListMes = mListMes;
     }
@@ -34,7 +34,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
-        Word word = mListMes.get(position);
+        Diction word = mListMes.get(position);
         holder.text.setText(word.getKey());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {

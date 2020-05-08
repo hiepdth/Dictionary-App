@@ -1,49 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <!--Header-->
     <RelativeLayout
-        android:padding="15dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <ImageView
-            android:id="@+id/btnBack"
-            android:tint="#000"
-            android:src="@mipmap/back"
-            android:layout_width="25dp"
-            android:layout_height="25dp"/>
-        <TextView
-            android:textColor="#000"
-            android:id="@+id/tvWord"
-            android:layout_centerHorizontal="true"
-            android:fontFamily="@font/promptbold"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Hello world"/>
-        <ImageView
-            android:id="@+id/btnMenu"
-            android:tint="#000"
-            android:rotation="90"
-            android:layout_alignParentRight="true"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:src="@mipmap/menu"/>
-
-    </RelativeLayout>
-    <LinearLayout
-        android:layout_marginTop="30dp"
-        android:id="@+id/btnSearch"
-        android:layout_below="@id/top"
-        android:translationY="-25dp"
-        android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:padding="15dp">
+
+        <ImageView
+            android:id="@+id/btnBack"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@mipmap/back"
+            android:tint="#000" />
+
+        <TextView
+            android:gravity="center"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:id="@+id/tvWord"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:fontFamily="@font/promptbold"
+            android:text="Hello world"
+            android:textColor="#000" />
+
+        <ImageView
+            android:id="@+id/btnMenu"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_alignParentRight="true"
+            android:rotation="90"
+            android:src="@mipmap/menu"
+            android:tint="#000" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/btnSearch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/top"
         android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="15dp"
         android:background="@drawable/shadow"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:gravity="center"
         android:orientation="horizontal"
         android:paddingHorizontal="15dp"
         android:paddingVertical="5dp">
@@ -52,29 +60,31 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:src="@mipmap/search"
-            android:tint="#808080"/>
+            android:tint="#808080" />
 
         <EditText
             android:id="@+id/edSearch"
-            android:layout_marginLeft="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:backgroundTint="#fff"
             android:fontFamily="@font/promptlight"
             android:hint="Hãy nhập gì đó"
             android:textColor="#000"
-            android:backgroundTint="#fff"
-            android:textSize="14dp"/>
+            android:textSize="14dp" />
 
     </LinearLayout>
+
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/mViewPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/mTabLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:tabTextAppearance="@style/TextTab"
-            app:tabSelectedTextColor="@color/start_color"/>
+            app:tabSelectedTextColor="@color/start_color"
+            app:tabTextAppearance="@style/TextTab" />
     </androidx.viewpager.widget.ViewPager>
 </LinearLayout>

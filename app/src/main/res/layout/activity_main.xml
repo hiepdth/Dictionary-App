@@ -30,8 +30,8 @@
             android:layout_weight="1">
             <ImageView
                 android:scaleType="centerCrop"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
                 android:src="@mipmap/history"/>
         </LinearLayout>
 
@@ -53,8 +53,8 @@
             android:layout_weight="1">
             <ImageView
                 android:scaleType="centerCrop"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
                 android:src="@mipmap/bookmark"/>
         </LinearLayout>
     </LinearLayout>

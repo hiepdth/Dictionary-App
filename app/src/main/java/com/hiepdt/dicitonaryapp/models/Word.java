@@ -1,15 +1,25 @@
 package com.hiepdt.dicitonaryapp.models;
 
 public class Word {
+    private int id;
     private String key;
-    private String meaning;
+    private long timestamp;
+    private String type;
 
-    public Word(String key, String meaning) {
+    public Word(){}
+    public Word(int id, String key, long timestamp, String type) {
+        this.id = id;
         this.key = key;
-        this.meaning = meaning;
+        this.timestamp = timestamp;
+        this.type = type;
     }
 
-    public Word() {
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getKey() {
@@ -20,11 +30,19 @@ public class Word {
         this.key = key;
     }
 
-    public String getMeaning() {
-        return meaning;
+    public long getTimestamp() {
+        return timestamp;
     }
 
-    public void setMeaning(String meaning) {
-        this.meaning = meaning;
+    public void setTimestamp(long timestamp) {
+        this.timestamp = timestamp;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

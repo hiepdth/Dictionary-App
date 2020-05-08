@@ -24,6 +24,8 @@ public class ResultActivity extends AppCompatActivity {
 
     private ImageView btnBack, btnMenu;
     private TextView tvWord;
+
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,7 +52,6 @@ public class ResultActivity extends AppCompatActivity {
         btnMenu = findViewById(R.id.btnMenu);
         tvWord = findViewById(R.id.tvWord);
 
-
     }
 
     private void action() {
@@ -60,5 +61,6 @@ public class ResultActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
+        tvWord.setText(getIntent().getExtras().getString("word", ""));
     }
 }

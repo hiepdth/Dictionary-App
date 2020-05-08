@@ -7,6 +7,7 @@
     android:padding="15dp">
 
     <ScrollView
+        android:scrollbars="none"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1">
@@ -17,14 +18,16 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/tvWord"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/promptbold"
                 android:text="Hello"
                 android:textColor="#000"
-                android:textSize="32dp" />
+                android:textSize="26dp" />
 
             <TextView
+                android:id="@+id/tvLangFrom"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/promptlightitalic"
@@ -70,6 +73,7 @@
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:src="@mipmap/hand" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -81,8 +85,9 @@
 
             <!--Content-->
             <TextView
+                android:id="@+id/tvMean"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginTop="20dp"
                 android:background="@drawable/background_word"
                 android:fontFamily="@font/promptlight"

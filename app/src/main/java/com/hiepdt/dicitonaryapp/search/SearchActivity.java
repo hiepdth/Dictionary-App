@@ -1,7 +1,13 @@
 package com.hiepdt.dicitonaryapp.search;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.widget.EditText;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
@@ -12,19 +18,25 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.hiepdt.dicitonaryapp.R;
-import com.hiepdt.dicitonaryapp.models.Word;
+import com.hiepdt.dicitonaryapp.hepler.DBHelper;
+import com.hiepdt.dicitonaryapp.models.APP;
+import com.hiepdt.dicitonaryapp.models.Diction;
+import com.hiepdt.dicitonaryapp.search.result.ResultActivity;
 
 import java.util.ArrayList;
 
 public class SearchActivity extends AppCompatActivity {
-    private EditText edSearch;
-    private ImageView btnSearch;
+    private AutoCompleteTextView edSearch;
+    private ImageView btnBack;
+    private ImageView btnVoice;
     private RecyclerView mRecyclerView;
     private LinearLayout empty;
 
     private SearchAdapter mAdapter;
 
-    private ArrayList<Word>mListWord;
+    private ArrayList<Diction>mListWord;
+
+    private DBHelper helper;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,8 +50,9 @@ public class SearchActivity extends AppCompatActivity {
     private void init() {
         mListWord = new ArrayList<>();
 
+        btnBack = findViewById(R.id.btnBack);
         edSearch = findViewById(R.id.edSearch);
-        btnSearch = findViewById(R.id.btnSearch);
+        btnVoice = findViewById(R.id.btnVoice);
         mRecyclerView = findViewById(R.id.mRecyclerView);
         empty = findViewById(R.id.empty);
 
@@ -48,16 +61,68 @@ public class SearchActivity extends AppCompatActivity {
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
 
-        mListWord.add(new Word("Hello", ""));
-        mListWord.add(new Word("Goodbye", ""));
-        mListWord.add(new Word("See", ""));
-        mListWord.add(new Word("Later", ""));
-
         mAdapter = new SearchAdapter(this, mListWord);
         mRecyclerView.setAdapter(mAdapter);
+
+        helper = new DBHelper(this);
+
+        ArrayAdapter arrayAdapter = new ArrayAdapter(this, R.layout.item_suggest, APP.mListWord);
+        edSearch.setAdapter(arrayAdapter);
+        edSearch.setThreshold(1);
+
+
     }
 
     private void action() {
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
+        edSearch.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String word = edSearch.getText().toString().trim();
+                edSearch.setText("");
+                Intent intent = new Intent(SearchActivity.this, ResultActivity.class);
+                intent.putExtra("word", word);
+                int pos = APP.mListWord.indexOf(word);
+                intent.putExtra("meaning", APP.mListDiction.get(pos).getMeaning());
+                startActivity(intent);
+            }
+        });
+        edSearch.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus){
+                    edSearch.setBackgroundResource(R.drawable.corner_search_edittext_select);
+                } else {
+                    edSearch.setBackgroundResource(R.drawable.corner_search_edittext_unselect);
+                }
+            }
+        });
+        edSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                int length = edSearch.getText().toString().trim().length();
+                if (length == 0){
+                    btnVoice.setImageResource(R.mipmap.micro);
+                } else {
+                    btnVoice.setImageResource(R.mipmap.delete);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
     }
 }
