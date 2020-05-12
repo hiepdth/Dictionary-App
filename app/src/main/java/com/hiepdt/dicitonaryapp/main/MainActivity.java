@@ -3,7 +3,6 @@ package com.hiepdt.dicitonaryapp.main;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
@@ -17,7 +16,6 @@ import com.hiepdt.dicitonaryapp.search.SearchActivity;
 public class MainActivity extends AppCompatActivity {
 
     private LinearLayout btnSearch;
-    private EditText edSearch;
     private ImageView btnHis, btnMark;
 
     @Override
@@ -32,7 +30,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void init() {
         btnSearch = findViewById(R.id.btnSearch);
-        edSearch = findViewById(R.id.edSearch);
         btnHis = findViewById(R.id.btnHis);
         btnMark = findViewById(R.id.btnMark);
     }
@@ -45,13 +42,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        edSearch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, SearchActivity.class);
-                startActivity(intent);
-            }
-        });
+
         btnHis.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

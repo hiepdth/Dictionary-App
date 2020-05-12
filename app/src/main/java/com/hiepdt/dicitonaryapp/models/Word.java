@@ -7,6 +7,11 @@ public class Word {
     private String type;
 
     public Word(){}
+    public Word(String key, long timestamp, String type) {
+        this.key = key;
+        this.timestamp = timestamp;
+        this.type = type;
+    }
     public Word(int id, String key, long timestamp, String type) {
         this.id = id;
         this.key = key;

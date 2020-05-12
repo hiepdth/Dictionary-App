@@ -1,17 +1,16 @@
 package com.hiepdt.dicitonaryapp.search.result;
 
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.speech.tts.TextToSpeech;
-import android.speech.tts.UtteranceProgressListener;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,19 +18,20 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.hiepdt.dicitonaryapp.R;
-import com.hiepdt.dicitonaryapp.SplashActivity;
-import com.hiepdt.dicitonaryapp.main.MainActivity;
+import com.hiepdt.dicitonaryapp.hepler.DBHelper;
+import com.hiepdt.dicitonaryapp.models.Word;
 
 import java.util.Locale;
-import java.util.Random;
 
 public class ContentFragment extends Fragment {
     private String WORD = "";
     private String MEANING = "";
 
     private TextView tvWord, tvMean, tvLangFrom;
-    private FloatingActionButton btnSound;
+    private FloatingActionButton btnSound, btnBookmark;
     private TextToSpeech tts;
+    private DBHelper helper;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -42,10 +42,12 @@ public class ContentFragment extends Fragment {
     }
 
     private void init(View v) {
+        helper = new DBHelper(getContext());
         tvWord = v.findViewById(R.id.tvWord);
         tvMean = v.findViewById(R.id.tvMean);
         tvLangFrom = v.findViewById(R.id.tvLangFrom);
         btnSound = v.findViewById(R.id.btnSound);
+        btnBookmark = v.findViewById(R.id.btnBookmark);
 
         WORD = getActivity().getIntent().getExtras().getString("word", "Không tìm thấy");
         MEANING = getActivity().getIntent().getExtras().getString("meaning", "Chịu...");
@@ -53,7 +55,7 @@ public class ContentFragment extends Fragment {
         tts = new TextToSpeech(getContext(), new TextToSpeech.OnInitListener() {
             @Override
             public void onInit(int status) {
-                if(status != TextToSpeech.ERROR) {
+                if (status != TextToSpeech.ERROR) {
                     tts.setLanguage(Locale.US);
                 }
             }
@@ -82,9 +84,18 @@ public class ContentFragment extends Fragment {
                 }, 1000);
             }
         });
+        btnBookmark.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Word word = new Word(WORD, System.currentTimeMillis(), "bookmark");
+                helper.insertWord(word);
+                Toast.makeText(getContext(), "Bookmark success!", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
-    public void onPause(){
-        if(tts !=null){
+
+    public void onPause() {
+        if (tts != null) {
             tts.stop();
             tts.shutdown();
         }

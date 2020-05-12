@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.hiepdt.dicitonaryapp.models.Diction;
+import com.hiepdt.dicitonaryapp.models.Word;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -34,6 +35,7 @@ public class DBHelper extends SQLiteOpenHelper {
             "                meaning TEXT NOT NULL," +
             "                langFrom VARCHAR(5) NOT NULL," +
             "                langTo VARCHAR(5) NOT NULL)";
+
     //Todo: Word table create statement
     private static final String CREATE_WORDS = "CREATE TABLE " + TABLE_WORDS +
             "( id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, " +
@@ -66,6 +68,7 @@ public class DBHelper extends SQLiteOpenHelper {
         }
     }
 
+    //--------- Functions for Diction TABLE--------------------//
     public void readDBFromZip(Context context, String fileName, String langFrom, String langTo){
         try {
             InputStream is = context.getAssets().open(fileName);
@@ -125,7 +128,6 @@ public class DBHelper extends SQLiteOpenHelper {
             Diction diction = new Diction(id, key, meaning, langFrom, langTo);
             mListDiction.add(diction);
         }
-        System.out.println("Size:"+mListDiction.size());
         closeDB();
         return mListDiction;
     }
@@ -136,7 +138,6 @@ public class DBHelper extends SQLiteOpenHelper {
         ArrayList<String> mListWord = new ArrayList<>();
         while (cursor.moveToNext()) {
             String key = cursor.getString(cursor.getColumnIndex("word"));
-
             mListWord.add(key);
         }
         closeDB();
@@ -149,6 +150,34 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
 
+    //--------- Functions for Word TABLE--------------------//
+
+    public void insertWord(Word word){
+        sqLiteDatabase = getWritableDatabase();
+        contentValues = new ContentValues();
+        contentValues.put("word", word.getKey());
+        contentValues.put("timestamp", word.getTimestamp());
+        contentValues.put("type", word.getType());
+        sqLiteDatabase.insert(TABLE_WORDS,null, contentValues);
+        closeDB();
+    }
+    public ArrayList<Word> getWordWithType(String type){
+        sqLiteDatabase = getReadableDatabase();
+        cursor = sqLiteDatabase.query(true, TABLE_WORDS, null, null, null, null, null, null, null);
+        ArrayList<Word> mListWord = new ArrayList<>();
+        while (cursor.moveToNext()) {
+            String _type = cursor.getString(cursor.getColumnIndex("type"));
+            if (_type.equalsIgnoreCase(type)) {
+                int id = cursor.getInt(cursor.getColumnIndex("id"));
+                String key = cursor.getString(cursor.getColumnIndex("word"));
+                long timestamp = cursor.getLong(cursor.getColumnIndex("timestamp"));
+                Word word = new Word(id, key, timestamp, _type);
+                mListWord.add(word);
+            }
+        }
+        closeDB();
+        return mListWord;
+    }
     //Todo: Đóng Database
     private void closeDB() {
         if (sqLiteDatabase != null) sqLiteDatabase.close();

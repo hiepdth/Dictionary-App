@@ -50,10 +50,10 @@
             android:src="@mipmap/search"
             android:tint="#808080" />
 
-        <EditText
-            android:id="@+id/edSearch"
+        <TextView
+            android:gravity="center_vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:layout_marginLeft="10dp"
             android:backgroundTint="#fff"
             android:fontFamily="@font/promptlight"
