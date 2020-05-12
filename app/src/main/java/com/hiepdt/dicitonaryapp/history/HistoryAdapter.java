@@ -10,15 +10,16 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.hiepdt.dicitonaryapp.R;
+import com.hiepdt.dicitonaryapp.models.Word;
 
 import java.util.ArrayList;
 
 public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHolder> {
 
     Context mContext;
-    ArrayList<String> mListWord;
+    ArrayList<Word> mListWord;
 
-    public HistoryAdapter(Context mContext, ArrayList<String> mListWord) {
+    public HistoryAdapter(Context mContext, ArrayList<Word> mListWord) {
         this.mContext = mContext;
         this.mListWord = mListWord;
     }
@@ -32,8 +33,8 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        String text = mListWord.get(position);
-        holder.text.setText(text);
+        Word word = mListWord.get(position);
+        holder.text.setText(word.getKey());
     }
 
     @Override

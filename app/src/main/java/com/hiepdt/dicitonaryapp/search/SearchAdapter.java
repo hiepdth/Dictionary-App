@@ -11,18 +11,18 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.hiepdt.dicitonaryapp.R;
-import com.hiepdt.dicitonaryapp.models.Diction;
+import com.hiepdt.dicitonaryapp.models.Word;
 import com.hiepdt.dicitonaryapp.search.result.ResultActivity;
 
 import java.util.ArrayList;
 
 public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder> {
     Context mContext;
-    ArrayList<Diction> mListMes;
+    ArrayList<Word> mListHistory;
 
-    public SearchAdapter(Context mContext, ArrayList<Diction> mListMes) {
+    public SearchAdapter(Context mContext, ArrayList<Word> mListHis) {
         this.mContext = mContext;
-        this.mListMes = mListMes;
+        this.mListHistory = mListHis;
     }
 
     @NonNull
@@ -34,7 +34,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
-        Diction word = mListMes.get(position);
+        Word word = mListHistory.get(position);
         holder.text.setText(word.getKey());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -48,12 +48,13 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
 
     @Override
     public int getItemCount() {
-        return mListMes.size();
+        return mListHistory.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         private TextView text;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             text = itemView.findViewById(R.id.text);

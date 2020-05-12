@@ -52,6 +52,8 @@ public class SplashActivity extends AppCompatActivity {
 ////        deleteDatabase("DictionDB");
         APP.mListDiction = helper.getAllDiction();
         APP.mListWord = helper.getAllWord();
+        APP.mListHis = helper.getWordWithType("history");
+        APP.mListMark = helper.getWordWithType("bookmark");
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override

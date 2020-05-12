@@ -12,12 +12,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.hiepdt.dicitonaryapp.R;
+import com.hiepdt.dicitonaryapp.models.APP;
 
 import java.util.ArrayList;
 
 public class HistoryActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
-    private ArrayList<String> mListWord;
     private ImageView btnBack;
     private HistoryAdapter mAdapter;
 
@@ -37,12 +37,8 @@ public class HistoryActivity extends AppCompatActivity {
         btnBack = findViewById(R.id.btnBack);
         mRecyclerView = findViewById(R.id.mRecyclerView);
         linearEmpty = findViewById(R.id.linearEmpty);
-        mListWord = new ArrayList<>();
-//        mListWord.add("Butterfly");
-//        mListWord.add("Strawberry");
-//        mListWord.add("Mango");
 
-        if (mListWord.size() == 0) {
+        if (APP.mListHis.size() == 0) {
             linearEmpty.setVisibility(View.VISIBLE);
             mRecyclerView.setVisibility(View.INVISIBLE);
             return;
@@ -50,7 +46,8 @@ public class HistoryActivity extends AppCompatActivity {
             RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(HistoryActivity.this, RecyclerView.VERTICAL, false);
             mRecyclerView.setLayoutManager(layoutManager);
             mRecyclerView.setItemAnimator(new DefaultItemAnimator());
-            mAdapter = new HistoryAdapter(HistoryActivity.this, mListWord);
+            mAdapter = new HistoryAdapter(HistoryActivity.this, APP.mListHis);
+            mAdapter.notifyDataSetChanged();
             mRecyclerView.setAdapter(mAdapter);
         }
     }

@@ -20,7 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.hiepdt.dicitonaryapp.R;
 import com.hiepdt.dicitonaryapp.hepler.DBHelper;
 import com.hiepdt.dicitonaryapp.models.APP;
-import com.hiepdt.dicitonaryapp.models.Diction;
+import com.hiepdt.dicitonaryapp.models.Word;
 import com.hiepdt.dicitonaryapp.search.result.ResultActivity;
 
 import java.util.ArrayList;
@@ -33,8 +33,6 @@ public class SearchActivity extends AppCompatActivity {
     private LinearLayout empty;
 
     private SearchAdapter mAdapter;
-
-    private ArrayList<Diction>mListWord;
 
     private DBHelper helper;
 
@@ -50,7 +48,8 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     private void init() {
-        mListWord = new ArrayList<>();
+        helper = new DBHelper(this);
+
 
         btnBack = findViewById(R.id.btnBack);
         edSearch = findViewById(R.id.edSearch);
@@ -64,16 +63,12 @@ public class SearchActivity extends AppCompatActivity {
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
 
-        mAdapter = new SearchAdapter(this, mListWord);
+        mAdapter = new SearchAdapter(this, APP.mListHis);
         mRecyclerView.setAdapter(mAdapter);
-
-        helper = new DBHelper(this);
 
         ArrayAdapter arrayAdapter = new ArrayAdapter(this, R.layout.item_suggest, APP.mListWord);
         edSearch.setAdapter(arrayAdapter);
         edSearch.setThreshold(1);
-
-
     }
 
     private void action() {
@@ -92,7 +87,12 @@ public class SearchActivity extends AppCompatActivity {
                 Intent intent = new Intent(SearchActivity.this, ResultActivity.class);
                 intent.putExtra("word", word);
                 int pos = APP.mListWord.indexOf(word);
+
                 intent.putExtra("meaning", APP.mListDiction.get(pos).getMeaning());
+                helper.insertWord(new Word(word, System.currentTimeMillis(), "history"));
+                APP.mListHis = helper.getWordWithType("history");
+                mAdapter = new SearchAdapter(SearchActivity.this, APP.mListHis);
+                mAdapter.notifyDataSetChanged();
                 startActivity(intent);
             }
         });
@@ -144,4 +144,5 @@ public class SearchActivity extends AppCompatActivity {
             }
         });
     }
+
 }

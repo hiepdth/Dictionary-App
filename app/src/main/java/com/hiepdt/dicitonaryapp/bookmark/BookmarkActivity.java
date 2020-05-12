@@ -13,14 +13,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.hiepdt.dicitonaryapp.R;
 import com.hiepdt.dicitonaryapp.hepler.DBHelper;
-import com.hiepdt.dicitonaryapp.models.Word;
-
-import java.util.ArrayList;
+import com.hiepdt.dicitonaryapp.models.APP;
 
 public class BookmarkActivity extends AppCompatActivity {
 
     private RecyclerView mRecyclerView;
-    private ArrayList<Word> mListWord;
     private ImageView btnBack;
     private BookmarkAdapter mAdapter;
 
@@ -40,9 +37,8 @@ public class BookmarkActivity extends AppCompatActivity {
         btnBack = findViewById(R.id.btnBack);
         mRecyclerView = findViewById(R.id.mRecyclerView);
         linearEmpty = findViewById(R.id.linearEmpty);
-        mListWord = helper.getWordWithType("bookmark");
 
-        if (mListWord.size() == 0){
+        if (APP.mListMark.size() == 0){
             linearEmpty.setVisibility(View.VISIBLE);
             mRecyclerView.setVisibility(View.INVISIBLE);
             return;
@@ -50,7 +46,8 @@ public class BookmarkActivity extends AppCompatActivity {
             RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(BookmarkActivity.this, RecyclerView.VERTICAL, false);
             mRecyclerView.setLayoutManager(layoutManager);
             mRecyclerView.setItemAnimator(new DefaultItemAnimator());
-            mAdapter = new BookmarkAdapter(BookmarkActivity.this, mListWord);
+            mAdapter = new BookmarkAdapter(BookmarkActivity.this, APP.mListMark);
+            mAdapter.notifyDataSetChanged();
             mRecyclerView.setAdapter(mAdapter);
         }
     }
