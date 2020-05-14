@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/corner_dialog"
+    android:paddingVertical="30dp">
+
+
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/logo_2" />
+
+    <TextView
+        android:id="@+id/tvDetect"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/logo"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/promptlight"
+        android:maxLines="1"
+        android:padding="20dp"
+        android:text="Hãy nói gì đó..."
+        android:textColor="#fff"
+        android:textSize="14sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvDetect"
+        android:layout_marginTop="30dp"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <com.scwang.wave.MultiWaveHeader
+            android:id="@+id/wave1"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:scaleY="-1"
+            android:visibility="invisible" />
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#fff" />
+
+        <com.scwang.wave.MultiWaveHeader
+            android:id="@+id/wave2"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginBottom="30dp"
+            android:visibility="invisible" />
+
+        <TextView
+            android:id="@+id/tutorial"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/promptlight"
+            android:gravity="center"
+            android:text="Giữ để nói"
+            android:textColor="#fff" />
+
+        <ImageView
+            android:id="@+id/btnVoice"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@drawable/stop" />
+    </LinearLayout>
+
+
+</RelativeLayout>

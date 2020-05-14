@@ -33,5 +33,6 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     implementation 'com.google.android.material:material:1.0.0'
     implementation 'com.github.f0ris.sweetalert:library:1.6.2'
+    implementation 'com.scwang.wave:MultiWaveHeader:1.0.0-alpha-1'
 
 }
