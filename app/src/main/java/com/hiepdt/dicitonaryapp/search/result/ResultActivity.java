@@ -1,8 +1,10 @@
 package com.hiepdt.dicitonaryapp.search.result;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -12,6 +14,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
 import com.hiepdt.dicitonaryapp.R;
+import com.hiepdt.dicitonaryapp.translate.TranslateActivity;
 
 import java.util.ArrayList;
 
@@ -24,6 +27,7 @@ public class ResultActivity extends AppCompatActivity {
 
     private ImageView btnBack, btnMenu;
     private TextView tvWord;
+    private LinearLayout btnSearch;
 
 
     @Override
@@ -52,6 +56,7 @@ public class ResultActivity extends AppCompatActivity {
         btnMenu = findViewById(R.id.btnMenu);
         tvWord = findViewById(R.id.tvWord);
 
+        btnSearch = findViewById(R.id.btnSearch);
     }
 
     private void action() {
@@ -62,5 +67,12 @@ public class ResultActivity extends AppCompatActivity {
             }
         });
         tvWord.setText(getIntent().getExtras().getString("word", ""));
+        btnSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ResultActivity.this, TranslateActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 }

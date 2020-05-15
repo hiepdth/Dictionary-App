@@ -115,9 +115,6 @@ public class SearchActivity extends AppCompatActivity {
 
                 intent.putExtra("meaning", APP.mListDiction.get(pos).getMeaning());
                 helper.insertWord(new Word(word, System.currentTimeMillis(), "history"));
-                APP.mListHis = helper.getWordWithType("history");
-                mAdapter = new SearchAdapter(SearchActivity.this, APP.mListHis);
-                mAdapter.notifyDataSetChanged();
                 startActivity(intent);
             }
         });
@@ -167,7 +164,7 @@ public class SearchActivity extends AppCompatActivity {
         btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent intent = new Intent();
+                Intent intent = new Intent();
             }
         });
 

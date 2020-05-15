@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#f9feff"
+    android:padding="20dp">
+
+    <LinearLayout
+        android:id="@+id/logo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center">
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/logo" />
+
+        <TextView
+            android:textSize="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:fontFamily="@font/promptbold"
+            android:text="Sora Translate" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_below="@id/logo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/corner"
+        android:padding="1dp">
+
+        <LinearLayout
+            android:id="@+id/from"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/background_word"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <org.angmarch.views.NiceSpinner
+                    android:id="@+id/spinFrom"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:backgroundTint="#E6E6E6"
+                    android:gravity="center"
+                    android:fontFamily="@font/promptlight"
+                    android:text="Tiếng Anh"
+                    android:textSize="12dp"
+                    app:arrowTint="#000"
+                    app:backgroundSelector="@drawable/background_word"
+                    app:popupTextAlignment="start"
+                    app:textTint="#000" />
+
+                <ImageView
+                    android:id="@+id/imgSpeakFrom"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/speak"
+                    android:tint="@color/start_color" />
+            </RelativeLayout>
+
+            <EditText
+                android:id="@+id/edFrom"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginTop="10dp"
+                android:backgroundTint="#fff"
+                android:fontFamily="@font/promptlight"
+                android:gravity="start"
+                android:text="Thanks for watching."
+                android:textColor="#000"
+                android:textSize="12dp" />
+
+            <ImageView
+                android:id="@+id/copyFrom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:src="@mipmap/copy" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/from"
+            android:background="#f6f6f6"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <org.angmarch.views.NiceSpinner
+                    android:id="@+id/spinTo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:backgroundTint="#E6E6E6"
+                    android:gravity="center"
+                    android:fontFamily="@font/promptlight"
+                    android:text="Việt Nam"
+                    android:textSize="12dp"
+                    app:arrowTint="#000"
+                    app:backgroundSelector="@drawable/background_word"
+                    app:popupTextAlignment="start"
+                    app:textTint="#000" />
+
+                <ImageView
+                    android:id="@+id/imgSpeakTo"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/speak"
+                    android:tint="@color/start_color" />
+            </RelativeLayout>
+
+            <EditText
+                android:id="@+id/edTo"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginTop="10dp"
+                android:backgroundTint="#f6f6f6"
+                android:fontFamily="@font/promptlight"
+                android:gravity="start"
+                android:text="Cảm ơn đã xem."
+                android:textColor="#000"
+                android:textSize="12dp" />
+
+            <ImageView
+                android:id="@+id/copyTo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:src="@mipmap/copy" />
+        </LinearLayout>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/btnSwap"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/from"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="-17.5dp"
+            android:src="@mipmap/sync"
+            app:backgroundTint="#fff"
+            app:fabCustomSize="35dp"
+            app:maxImageSize="17.5dp" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="50dp"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent">
+
+        <LinearLayout
+            android:layout_centerVertical="true"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="2">
+            <TextView
+                android:background="@drawable/corner_tran"
+                android:layout_toLeftOf="@id/btnVoice"
+                android:gravity="center"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:layout_centerVertical="true"
+                android:fontFamily="@font/promptbold"
+                android:lines="1"
+                android:text="Tiếng Anh"
+                />
+            <TextView
+                android:background="@drawable/corner_tran"
+                android:gravity="center"
+                android:layout_toRightOf="@id/btnVoice"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="50dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:fontFamily="@font/promptbold"
+                android:text="Tiếng Việt"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+
+
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/btnVoice"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_centerInParent="true"
+            android:src="@mipmap/voice_2"
+            app:civ_border_width="5dp"
+            app:civ_border_color="#f9feff"/>
+
+
+    </RelativeLayout>
+</RelativeLayout>

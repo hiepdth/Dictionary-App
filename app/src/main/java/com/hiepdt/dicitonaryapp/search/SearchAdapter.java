@@ -34,13 +34,14 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
-        Word word = mListHistory.get(position);
+        final Word word = mListHistory.get(position);
         holder.text.setText(word.getKey());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(mContext, ResultActivity.class);
+                intent.putExtra("word", word.getKey());
                 mContext.startActivity(intent);
             }
         });
