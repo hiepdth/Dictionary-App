@@ -36,6 +36,8 @@
         android:padding="1dp">
 
         <LinearLayout
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             android:id="@+id/from"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -47,23 +49,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <org.angmarch.views.NiceSpinner
+                <com.jaredrummler.materialspinner.MaterialSpinner
                     android:id="@+id/spinFrom"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:backgroundTint="#E6E6E6"
                     android:gravity="center"
                     android:fontFamily="@font/promptlight"
-                    android:text="Tiếng Anh"
-                    android:textSize="12dp"
-                    app:arrowTint="#000"
-                    app:backgroundSelector="@drawable/background_word"
-                    app:popupTextAlignment="start"
-                    app:textTint="#000" />
+                    android:backgroundTint="#e6e6e6"
+                    android:textSize="12dp" />
 
                 <ImageView
-                    android:id="@+id/imgSpeakFrom"
+                    android:id="@+id/speakFrom"
                     android:layout_width="25dp"
                     android:layout_height="25dp"
                     android:layout_alignParentRight="true"
@@ -72,17 +69,30 @@
                     android:tint="@color/start_color" />
             </RelativeLayout>
 
-            <EditText
-                android:id="@+id/edFrom"
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
+            <RelativeLayout
                 android:layout_marginTop="10dp"
-                android:backgroundTint="#fff"
-                android:fontFamily="@font/promptlight"
-                android:gravity="start"
-                android:text="Thanks for watching."
-                android:textColor="#000"
-                android:textSize="12dp" />
+                android:layout_width="match_parent"
+                android:layout_height="100dp">
+                <EditText
+                    android:id="@+id/edFrom"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:backgroundTint="#fff"
+                    android:fontFamily="@font/promptlight"
+                    android:gravity="start"
+                    android:textColor="#000"
+                    android:textSize="14dp" />
+                <ImageView
+                    android:visibility="invisible"
+                    android:id="@+id/delete"
+                    android:layout_margin="4dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:tint="#000"
+                    android:src="@mipmap/delete"/>
+            </RelativeLayout>
+
 
             <ImageView
                 android:id="@+id/copyFrom"
@@ -93,6 +103,8 @@
         </LinearLayout>
 
         <LinearLayout
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/from"
@@ -104,23 +116,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <org.angmarch.views.NiceSpinner
+                <com.jaredrummler.materialspinner.MaterialSpinner
                     android:id="@+id/spinTo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:backgroundTint="#E6E6E6"
                     android:gravity="center"
                     android:fontFamily="@font/promptlight"
-                    android:text="Việt Nam"
-                    android:textSize="12dp"
-                    app:arrowTint="#000"
-                    app:backgroundSelector="@drawable/background_word"
-                    app:popupTextAlignment="start"
-                    app:textTint="#000" />
+                    android:backgroundTint="#e6e6e6"
+                    android:textSize="12dp"/>
 
                 <ImageView
-                    android:id="@+id/imgSpeakTo"
+                    android:id="@+id/speakTo"
                     android:layout_width="25dp"
                     android:layout_height="25dp"
                     android:layout_alignParentRight="true"
@@ -129,17 +136,16 @@
                     android:tint="@color/start_color" />
             </RelativeLayout>
 
-            <EditText
-                android:id="@+id/edTo"
+            <TextView
+                android:id="@+id/tvResult"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:layout_marginTop="10dp"
-                android:backgroundTint="#f6f6f6"
+                android:background="#f6f6f6"
                 android:fontFamily="@font/promptlight"
                 android:gravity="start"
-                android:text="Cảm ơn đã xem."
                 android:textColor="#000"
-                android:textSize="12dp" />
+                android:textSize="14dp" />
 
             <ImageView
                 android:id="@+id/copyTo"
@@ -177,6 +183,7 @@
             android:layout_height="wrap_content"
             android:weightSum="2">
             <TextView
+                android:id="@+id/tvFrom"
                 android:background="@drawable/corner_tran"
                 android:layout_toLeftOf="@id/btnVoice"
                 android:gravity="center"
@@ -189,6 +196,7 @@
                 android:text="Tiếng Anh"
                 />
             <TextView
+                android:id="@+id/tvTo"
                 android:background="@drawable/corner_tran"
                 android:gravity="center"
                 android:layout_toRightOf="@id/btnVoice"

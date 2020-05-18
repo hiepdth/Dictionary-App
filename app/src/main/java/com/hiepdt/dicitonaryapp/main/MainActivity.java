@@ -16,7 +16,7 @@ import com.hiepdt.dicitonaryapp.search.SearchActivity;
 public class MainActivity extends AppCompatActivity {
 
     private LinearLayout btnSearch;
-    private ImageView btnHis, btnMark;
+    private LinearLayout btnHis, btnMark;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

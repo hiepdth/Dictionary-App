@@ -128,6 +128,7 @@ public class DBHelper extends SQLiteOpenHelper {
             Diction diction = new Diction(id, key, meaning, langFrom, langTo);
             mListDiction.add(diction);
         }
+        System.out.println("So luong: "+mListDiction.size());
         closeDB();
         return mListDiction;
     }
