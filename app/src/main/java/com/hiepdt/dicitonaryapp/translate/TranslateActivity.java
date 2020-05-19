@@ -1,5 +1,8 @@
 package com.hiepdt.dicitonaryapp.translate;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
@@ -10,6 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -115,6 +119,7 @@ public class TranslateActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(MaterialSpinner view, int position, long id, Object item) {
                 LANG_FROM = language.acronym.get(spinFrom.getText().toString());
+                tvFrom.setText(spinFrom.getText().toString());
                 translate();
             }
         });
@@ -122,7 +127,20 @@ public class TranslateActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(MaterialSpinner view, int position, long id, Object item) {
                 LANG_TO = language.acronym.get(spinTo.getText().toString());
+                tvTo.setText(spinTo.getText().toString());
                 translate();
+            }
+        });
+
+        copyTo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!TEXT_TO.isEmpty()) {
+                    ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+                    ClipData clip = ClipData.newPlainText("result", TEXT_TO);
+                    clipboard.setPrimaryClip(clip);
+                    Toast.makeText(TranslateActivity.this, "Copied to clipboard", Toast.LENGTH_SHORT).show();
+                }
             }
         });
         speakFrom.setOnClickListener(new View.OnClickListener() {
@@ -148,16 +166,17 @@ public class TranslateActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
                 TEXT_FROM = edFrom.getText().toString().trim();
                 if (TEXT_FROM.length() != 0) {
                     delete.setVisibility(View.VISIBLE);
                 } else {
                     delete.setVisibility(View.INVISIBLE);
                 }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
             }
         });
         btnRun.setOnClickListener(new View.OnClickListener() {
@@ -213,7 +232,11 @@ public class TranslateActivity extends AppCompatActivity {
         //Swap language
         String temp = spinTo.getText().toString();
         spinTo.setText(spinFrom.getText().toString());
+        tvTo.setText(spinFrom.getText().toString());
         spinFrom.setText(temp);
+        tvFrom.setText(temp);
+
+
 
     }
 

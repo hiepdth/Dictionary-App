@@ -69,6 +69,7 @@
 
                 <com.jaredrummler.materialspinner.MaterialSpinner
                     android:id="@+id/spinFrom"
+                    android:scrollbars="none"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
@@ -139,6 +140,7 @@
 
                 <com.jaredrummler.materialspinner.MaterialSpinner
                     android:id="@+id/spinTo"
+                    android:scrollbars="none"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
@@ -192,12 +194,22 @@
 
     </RelativeLayout>
 
-    <RelativeLayout
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/footer"
+        android:layout_centerHorizontal="true"
+        android:fontFamily="@font/promptlight"
+        android:text="Tap to speak"
+        android:textColor="@color/start_color"
+        android:textSize="12dp"
+        android:textStyle="bold" />
 
+    <RelativeLayout
+        android:id="@+id/footer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginTop="50dp">
+        android:layout_alignParentBottom="true">
 
         <LinearLayout
             android:layout_width="match_parent"

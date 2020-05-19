@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.Settings;
 import android.speech.RecognitionListener;
 import android.speech.RecognizerIntent;
@@ -33,11 +34,15 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.hiepdt.dicitonaryapp.R;
 import com.hiepdt.dicitonaryapp.hepler.DBHelper;
 import com.hiepdt.dicitonaryapp.models.APP;
+import com.hiepdt.dicitonaryapp.models.Language;
 import com.hiepdt.dicitonaryapp.models.Word;
 import com.hiepdt.dicitonaryapp.search.result.ResultActivity;
+import com.hiepdt.dicitonaryapp.translate.TranslateActivity;
+import com.jaredrummler.materialspinner.MaterialSpinner;
 import com.scwang.wave.MultiWaveHeader;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class SearchActivity extends AppCompatActivity {
     private SpeechRecognizer mSpeechRecongizer;
@@ -55,6 +60,9 @@ public class SearchActivity extends AppCompatActivity {
 
     private boolean isDeletable;
     private MultiWaveHeader wave1, wave2;
+    private Language language;
+
+    private String LANG = "vi";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -69,7 +77,7 @@ public class SearchActivity extends AppCompatActivity {
     private void init() {
 
         helper = new DBHelper(this);
-
+        language = new Language();
 
         btnBack = findViewById(R.id.btnBack);
         edSearch = findViewById(R.id.edSearch);
@@ -93,7 +101,7 @@ public class SearchActivity extends AppCompatActivity {
         mSpeechRecongizer = SpeechRecognizer.createSpeechRecognizer(this);
         mSpeechRecognizerIntent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         mSpeechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
-        mSpeechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "vi_VN");
+//        mSpeechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "vi");
     }
 
     private void action() {
@@ -186,6 +194,20 @@ public class SearchActivity extends AppCompatActivity {
         dialog.setContentView(R.layout.dialog_speech);
         final ImageView btnVoice = dialog.findViewById(R.id.btnVoice);
         final TextView tvDetect = dialog.findViewById(R.id.tvDetect);
+        final MaterialSpinner spinner = dialog.findViewById(R.id.spinner);
+        List<String> data = new ArrayList<>();
+        data.addAll(language.acronym.keySet());
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, data);
+        spinner.setAdapter(adapter);
+        spinner.setText("Vietnamese");
+
+        spinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(MaterialSpinner view, int position, long id, Object item) {
+                LANG = language.acronym.get(spinner.getText().toString());
+            }
+        });
         wave1 = dialog.findViewById(R.id.wave1);
         wave2 = dialog.findViewById(R.id.wave2);
 
@@ -217,7 +239,6 @@ public class SearchActivity extends AppCompatActivity {
                                 wave2.setVisibility(View.INVISIBLE);
                                 wave1.stop();
                                 wave2.stop();
-
                                 mSpeechRecongizer.stopListening();
                                 tvDetect.setHint("You will see the input here");
                                 break;
@@ -228,6 +249,7 @@ public class SearchActivity extends AppCompatActivity {
                                 wave2.setVisibility(View.VISIBLE);
                                 wave1.start();
                                 wave2.start();
+                                mSpeechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, LANG);
                                 mSpeechRecongizer.startListening(mSpeechRecognizerIntent);
                                 break;
                         }
@@ -276,8 +298,21 @@ public class SearchActivity extends AppCompatActivity {
                     wave1.setVisibility(View.INVISIBLE);
                     wave2.setVisibility(View.INVISIBLE);
 
+//                    System.out.println(matches.get(0));
                     tvDetect.setText(matches.get(0));
-                    dialog.dismiss();
+                    Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            dialog.dismiss();
+                            Intent intent = new Intent(SearchActivity.this, TranslateActivity.class);
+                            intent.putExtra("text", matches.get(0));
+                            intent.putExtra("lang", spinner.getText().toString());
+                            intent.putExtra("acronym", LANG);
+                            startActivity(intent);
+                        }
+                    }, 1000);
+
                 }
             }
 
