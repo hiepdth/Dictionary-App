@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="#f9feff"
     android:padding="15dp">
 
     <ScrollView
@@ -31,7 +32,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/promptlightitalic"
-                android:text="Tiếng Anh" />
+                android:text="English" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -79,7 +80,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:fontFamily="@font/promptbold"
-                        android:text="Cử chỉ" />
+                        android:text="Gesture" />
                 </LinearLayout>
             </RelativeLayout>
 

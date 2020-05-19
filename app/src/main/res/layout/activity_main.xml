@@ -2,7 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#f9feff">
 
     <!--top-->
     <LinearLayout
@@ -58,7 +59,7 @@
             android:backgroundTint="#fff"
             android:fontFamily="@font/promptlight"
             android:gravity="center_vertical"
-            android:hint="Hãy nhập gì đó"
+            android:hint="Type something ..."
             android:textColor="#000"
             android:textSize="14dp" />
 
@@ -77,7 +78,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/promptlight"
-            android:text="Từ mới" />
+            android:text="Vocabulary" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -126,7 +127,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/promptlight"
-            android:text="Tục ngữ và thành ngữ" />
+            android:text="Proverb" />
 
         <LinearLayout
             android:layout_width="match_parent"

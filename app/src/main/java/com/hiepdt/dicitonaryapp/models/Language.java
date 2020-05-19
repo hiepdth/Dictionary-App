@@ -18,6 +18,5 @@ public class Language {
         acronym.put("Korea", "ko");
         acronym.put("Thai", "th");
         acronym.put("Lao", "lo");
-
     }
 }

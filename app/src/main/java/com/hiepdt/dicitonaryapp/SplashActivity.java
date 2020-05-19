@@ -35,7 +35,6 @@ public class SplashActivity extends AppCompatActivity {
         editor = sp.edit();
         helper = new DBHelper(this);
 
-
         if (sp.getInt("exist", 0) == 0){
             showProgressDialog();
             editor.putInt("exist", 1);

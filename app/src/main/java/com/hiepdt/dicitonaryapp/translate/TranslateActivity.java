@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -32,7 +31,7 @@ public class TranslateActivity extends AppCompatActivity {
     private ImageView speakFrom, speakTo;
     private EditText edFrom;
     private TextView tvResult;
-    private ImageView copyFrom, copyTo;
+    private ImageView copyTo, btnRun, btnBack;
     private TextView tvFrom, tvTo;
     private CircleImageView btnVoice;
     private FloatingActionButton btnSwap;
@@ -66,13 +65,13 @@ public class TranslateActivity extends AppCompatActivity {
         speakTo = findViewById(R.id.speakTo);
         edFrom = findViewById(R.id.edFrom);
         tvResult = findViewById(R.id.tvResult);
-        copyFrom = findViewById(R.id.copyFrom);
         copyTo = findViewById(R.id.copyTo);
         tvFrom = findViewById(R.id.tvFrom);
         tvTo = findViewById(R.id.tvTo);
         btnVoice = findViewById(R.id.btnVoice);
         btnSwap = findViewById(R.id.btnSwap);
-
+        btnRun = findViewById(R.id.btnRun);
+        btnBack = findViewById(R.id.btnBack);
         delete = findViewById(R.id.delete);
         tran = new Translate();
         tts = new TextToSpeech(this, new TextToSpeech.OnInitListener() {
@@ -91,18 +90,30 @@ public class TranslateActivity extends AppCompatActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, data);
 
         spinFrom.setAdapter(adapter);
-
+        spinFrom.setText("English");
         spinTo.setAdapter(adapter);
-
-
+        spinTo.setText("Vietnamese");
     }
 
     private void action() {
-
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
         spinFrom.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener() {
             @Override
             public void onItemSelected(MaterialSpinner view, int position, long id, Object item) {
-                
+                LANG_FROM = language.acronym.get(spinFrom.getText().toString());
+                translate();
+            }
+        });
+        spinTo.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(MaterialSpinner view, int position, long id, Object item) {
+                LANG_TO = language.acronym.get(spinTo.getText().toString());
+                translate();
             }
         });
         speakFrom.setOnClickListener(new View.OnClickListener() {
@@ -135,24 +146,30 @@ public class TranslateActivity extends AppCompatActivity {
                 TEXT_FROM = edFrom.getText().toString().trim();
                 if (TEXT_FROM.length() != 0) {
                     delete.setVisibility(View.VISIBLE);
-                    translate();
                 } else {
                     delete.setVisibility(View.INVISIBLE);
                 }
             }
         });
-//        btnSwap.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                edFrom.setText(TEXT_TO);
-//                tvResult.setText("");
-//            }
-//        });
+        btnRun.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                translate();
+            }
+        });
+        btnSwap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                swapLanguage();
+                translate();
+            }
+        });
 
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 edFrom.setText("");
+                tvResult.setText("");
             }
         });
     }
@@ -166,15 +183,39 @@ public class TranslateActivity extends AppCompatActivity {
     }
 
     public void translate() {
-        new TranHttp().execute(TEXT_FROM);
+        if (TEXT_FROM.length() != 0) {
+            new TranHttp().execute(TEXT_FROM);
+        }
+    }
+
+    public void swapLanguage() {
+        //Swap acronym
+        String temp1 = LANG_FROM;
+        LANG_FROM = LANG_TO;
+        LANG_TO = temp1;
+
+        //Swap text
+        TEXT_FROM = TEXT_TO;
+        TEXT_TO = "";
+        edFrom.setText(TEXT_FROM);
+
+        //Swap language
+        String temp = spinTo.getText().toString();
+        spinTo.setText(spinFrom.getText().toString());
+        spinFrom.setText(temp);
+
     }
 
     class TranHttp extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... strings) {
+            if (LANG_FROM.equalsIgnoreCase(LANG_TO)) {
+                return strings[0];
+            }
             String mean = tran.translate(TranslateActivity.this, LANG_FROM, LANG_TO, strings[0]);
             return mean.trim();
         }
+
 
         @Override
         protected void onPostExecute(String response) {

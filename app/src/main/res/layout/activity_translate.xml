@@ -3,45 +3,63 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="#f9feff"
+    android:orientation="vertical"
     android:padding="20dp">
 
-    <LinearLayout
-        android:id="@+id/logo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center">
-
-        <ImageView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:src="@drawable/logo" />
-
-        <TextView
-            android:textSize="16dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:fontFamily="@font/promptbold"
-            android:text="Sora Translate" />
-    </LinearLayout>
 
     <RelativeLayout
-        android:layout_below="@id/logo"
+        android:id="@+id/logo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/btnBack"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/back"
+            android:tint="#000" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/image"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/logo" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_toRightOf="@id/image"
+                android:fontFamily="@font/promptbold"
+                android:text="Sora Translate"
+                android:textSize="16dp" />
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/logo"
         android:layout_marginTop="20dp"
         android:background="@drawable/corner"
         android:padding="1dp">
 
         <LinearLayout
-            android:focusable="true"
-            android:focusableInTouchMode="true"
             android:id="@+id/from"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/background_word"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             android:orientation="vertical"
             android:padding="10dp">
 
@@ -54,9 +72,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:gravity="center"
-                    android:fontFamily="@font/promptlight"
                     android:backgroundTint="#e6e6e6"
+                    android:fontFamily="@font/promptlight"
+                    android:gravity="center"
                     android:textSize="12dp" />
 
                 <ImageView
@@ -70,9 +88,10 @@
             </RelativeLayout>
 
             <RelativeLayout
-                android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
-                android:layout_height="100dp">
+                android:layout_height="100dp"
+                android:layout_marginTop="10dp">
+
                 <EditText
                     android:id="@+id/edFrom"
                     android:layout_width="match_parent"
@@ -82,33 +101,35 @@
                     android:gravity="start"
                     android:textColor="#000"
                     android:textSize="14dp" />
+
                 <ImageView
-                    android:visibility="invisible"
                     android:id="@+id/delete"
-                    android:layout_margin="4dp"
-                    android:layout_alignParentRight="true"
                     android:layout_width="16dp"
                     android:layout_height="16dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_margin="4dp"
+                    android:src="@mipmap/delete"
                     android:tint="#000"
-                    android:src="@mipmap/delete"/>
+                    android:visibility="invisible" />
             </RelativeLayout>
 
 
             <ImageView
-                android:id="@+id/copyFrom"
+                android:id="@+id/btnRun"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
-                android:src="@mipmap/copy" />
+                android:rotation="180"
+                android:src="@mipmap/run" />
         </LinearLayout>
 
         <LinearLayout
-            android:focusable="true"
-            android:focusableInTouchMode="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/from"
             android:background="#f6f6f6"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             android:orientation="vertical"
             android:padding="10dp">
 
@@ -121,10 +142,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:gravity="center"
-                    android:fontFamily="@font/promptlight"
                     android:backgroundTint="#e6e6e6"
-                    android:textSize="12dp"/>
+                    android:fontFamily="@font/promptlight"
+                    android:gravity="center"
+                    android:textSize="12dp" />
 
                 <ImageView
                     android:id="@+id/speakTo"
@@ -155,6 +176,7 @@
                 android:src="@mipmap/copy" />
         </LinearLayout>
 
+
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/btnSwap"
             android:layout_width="wrap_content"
@@ -167,50 +189,50 @@
             app:fabCustomSize="35dp"
             app:maxImageSize="17.5dp" />
 
+
     </RelativeLayout>
 
     <RelativeLayout
 
-        android:layout_alignParentBottom="true"
-        android:layout_marginTop="50dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_width="match_parent">
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="50dp">
 
         <LinearLayout
-            android:layout_centerVertical="true"
-            android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:orientation="horizontal"
             android:weightSum="2">
+
             <TextView
                 android:id="@+id/tvFrom"
-                android:background="@drawable/corner_tran"
-                android:layout_toLeftOf="@id/btnVoice"
-                android:gravity="center"
                 android:layout_width="0dp"
                 android:layout_height="50dp"
-                android:layout_weight="1"
                 android:layout_centerVertical="true"
+                android:layout_toLeftOf="@id/btnVoice"
+                android:layout_weight="1"
+                android:background="@drawable/corner_tran"
                 android:fontFamily="@font/promptbold"
+                android:gravity="center"
                 android:lines="1"
-                android:text="Tiếng Anh"
-                />
+                android:text="English" />
+
             <TextView
                 android:id="@+id/tvTo"
-                android:background="@drawable/corner_tran"
-                android:gravity="center"
-                android:layout_toRightOf="@id/btnVoice"
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="50dp"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/btnVoice"
+                android:layout_weight="1"
+                android:background="@drawable/corner_tran"
                 android:fontFamily="@font/promptbold"
+                android:gravity="center"
                 android:text="Tiếng Việt"
                 android:textStyle="bold" />
         </LinearLayout>
-
-
 
 
         <de.hdodenhof.circleimageview.CircleImageView
@@ -219,8 +241,8 @@
             android:layout_height="65dp"
             android:layout_centerInParent="true"
             android:src="@mipmap/voice_2"
-            app:civ_border_width="5dp"
-            app:civ_border_color="#f9feff"/>
+            app:civ_border_color="#f9feff"
+            app:civ_border_width="5dp" />
 
 
     </RelativeLayout>

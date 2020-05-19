@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#f9feff"
     android:orientation="vertical">
     <!--Header-->
     <RelativeLayout
@@ -26,7 +27,7 @@
             android:fontFamily="@font/promptbold"
             android:gravity="center"
             android:maxLines="1"
-            android:text="Sổ tay"
+            android:text="Bookmark"
             android:textSize="16dp"
             android:textColor="#000" />
 

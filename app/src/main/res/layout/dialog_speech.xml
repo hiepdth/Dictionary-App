@@ -22,7 +22,7 @@
         android:fontFamily="@font/promptlight"
         android:maxLines="1"
         android:padding="20dp"
-        android:text="Hãy nói gì đó..."
+        android:text="Say something ..."
         android:textColor="#fff"
         android:textSize="14sp" />
 
@@ -60,7 +60,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/promptlight"
             android:gravity="center"
-            android:text="Giữ để nói"
+            android:text="Tap to speak"
             android:textColor="#fff" />
 
         <ImageView
