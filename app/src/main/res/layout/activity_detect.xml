@@ -2,7 +2,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#f9feff"
     android:orientation="vertical">
     <!--Header-->
@@ -40,21 +39,47 @@
         android:layout_below="@id/header"
         android:background="#ccc" />
 
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:fontFamily="@font/promptbold"
+        android:text="Language" />
+
+    <com.jaredrummler.materialspinner.MaterialSpinner
+        android:id="@+id/spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/text"
+        android:layout_centerHorizontal="true"
+        android:layout_marginHorizontal="30dp"
+        android:fontFamily="@font/promptlight"
+        android:gravity="center"
+        android:backgroundTint="@color/start_color"
+        android:scrollbars="none"
+        android:textSize="14dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:fontFamily="@font/promptbold"
+        android:text="Image" />
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center_horizontal"
         android:orientation="vertical">
 
-
         <LinearLayout
             android:id="@+id/linear"
-            android:layout_below="@id/spinner"
             android:layout_width="300dp"
             android:layout_height="200dp"
             android:layout_centerHorizontal="true"
-            android:layout_marginVertical="30dp"
+            android:layout_marginBottom="30dp"
             android:background="@drawable/corner_dialog">
+
 
             <ImageView
                 android:id="@+id/image"
@@ -123,29 +148,8 @@
 
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="30dp"
-            android:fontFamily="@font/promptbold"
-            android:text="Language: " />
-
-        <com.jaredrummler.materialspinner.MaterialSpinner
-            android:id="@+id/spinner"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/text"
-            android:layout_centerHorizontal="true"
-            android:layout_marginHorizontal="30dp"
-            android:fontFamily="@font/promptlight"
-            app:ms_background_color="#d8d8d8"
-            android:gravity="center"
-            android:scrollbars="none"
-            android:textSize="14dp" />
 
         <Button
-            android:enabled="false"
             android:id="@+id/btnRun"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -153,6 +157,7 @@
             android:layout_gravity="bottom"
             android:layout_margin="30dp"
             android:background="@drawable/corner_search_edittext_unselect"
+            android:enabled="false"
             android:fontFamily="@font/promptbold"
             android:text="TRANSALTE"
             android:textColor="#ccc" />

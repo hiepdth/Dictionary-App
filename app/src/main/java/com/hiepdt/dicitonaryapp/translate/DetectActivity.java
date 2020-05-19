@@ -1,10 +1,13 @@
 package com.hiepdt.dicitonaryapp.translate;
 
+import android.Manifest;
 import android.app.Activity;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.content.res.AssetManager;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
@@ -16,6 +19,7 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
 import com.googlecode.tesseract.android.TessBaseAPI;
 import com.hiepdt.dicitonaryapp.R;
@@ -32,18 +36,19 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
+
 public class DetectActivity extends AppCompatActivity implements View.OnClickListener {
 
+    SweetAlertDialog pDialog;
     private TessBaseAPI tessBaseAPI;
     private LinearLayout btnCam, btnGal;
     private ImageView btnBack;
     private ImageView image;
     private Uri uri;
-
     private Button btnRun;
     private MaterialSpinner spinner;
     private Language language;
-
     private String LANG = "";
 
     @Override
@@ -89,7 +94,6 @@ public class DetectActivity extends AppCompatActivity implements View.OnClickLis
         });
     }
 
-
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -97,12 +101,20 @@ public class DetectActivity extends AppCompatActivity implements View.OnClickLis
                 onBackPressed();
                 break;
             case R.id.btnCam:
+                ContentValues values = new ContentValues();
+                values.put(MediaStore.Images.Media.TITLE, "NewPic");
+                values.put(MediaStore.Images.Media.DESCRIPTION, "Image To Text");
+                uri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+
+                Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+                startActivityForResult(cameraIntent, 2);
                 break;
             case R.id.btnGal:
                 CropImage.startPickImageActivity(DetectActivity.this);
                 break;
             case R.id.btnRun:
-                doRecognize();
+                new doOCR().execute();
                 break;
 
         }
@@ -111,26 +123,35 @@ public class DetectActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == CropImage.PICK_IMAGE_CHOOSER_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
-            Uri uriImage = CropImage.getPickImageResultUri(this, data);
-            if (CropImage.isReadExternalStoragePermissionsRequired(this, uriImage)) {
-                uri = uriImage;
-            } else {
-                startCrop(uriImage);
+        if (resultCode == RESULT_OK) {
+            if (requestCode == CropImage.PICK_IMAGE_CHOOSER_REQUEST_CODE ) {
+                Uri uriImage = CropImage.getPickImageResultUri(this, data);
+                if (CropImage.isReadExternalStoragePermissionsRequired(this, uriImage)) {
+                    uri = uriImage;
+                } else {
+                    startCrop(uriImage);
+                }
             }
-        }
-        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
-            CropImage.ActivityResult result = CropImage.getActivityResult(data);
-            if (resultCode == RESULT_OK) {
-                uri = result.getUri();
-                image.setImageURI(result.getUri());
+            if (requestCode == 2) {
+                startCrop(uri);
+            }
+
+            if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+                CropImage.ActivityResult result = CropImage.getActivityResult(data);
+                if (resultCode == RESULT_OK) {
+                    uri = result.getUri();
+                    image.setImageURI(result.getUri());
+                }
             }
         }
     }
 
+    //Todo: Get URI from Gallery
     private void startCrop(Uri uri) {
         CropImage.activity(uri).setGuidelines(CropImageView.Guidelines.ON).setMultiTouchEnabled(true).start(this);
     }
+
+    //Todo:
 
     private void initOCR(String lang) throws IOException {
         prepareLanguageDir(lang);
@@ -165,7 +186,6 @@ public class DetectActivity extends AppCompatActivity implements View.OnClickLis
         os.flush();
         os.close();
     }
-
 
     public void doRecognize() {
         try {
@@ -210,10 +230,36 @@ public class DetectActivity extends AppCompatActivity implements View.OnClickLis
         return l;
     }
 
+    class doOCR extends AsyncTask<Void, Void, String> {
+
+        @Override
+        protected String doInBackground(Void... voids) {
+            publishProgress();
+            doRecognize();
+            return null;
+        }
+
+        @Override
+        protected void onProgressUpdate(Void... values) {
+            super.onProgressUpdate(values);
+            pDialog = new SweetAlertDialog(DetectActivity.this, SweetAlertDialog.PROGRESS_TYPE);
+            pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+            pDialog.setTitleText("Loading");
+            pDialog.setCancelable(false);
+            pDialog.show();
+        }
+
+        @Override
+        protected void onPostExecute(String response) {
+            pDialog.dismiss();
+        }
+    }
+
+    //---------------------------------------------//
     @Override
     protected void onResume() {
         super.onResume();
-        if (uri!= null && !LANG.isEmpty()){
+        if (uri != null && !LANG.isEmpty()) {
             btnRun.setEnabled(true);
             btnRun.setBackgroundResource(R.drawable.corner_dialog);
             btnRun.setTextColor(Color.parseColor("#ffffff"));
@@ -223,4 +269,6 @@ public class DetectActivity extends AppCompatActivity implements View.OnClickLis
             btnRun.setTextColor(Color.parseColor("#cccccc"));
         }
     }
+
+
 }

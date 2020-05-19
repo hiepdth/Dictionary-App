@@ -100,7 +100,7 @@ public class TranslateActivity extends AppCompatActivity {
             spinFrom.setText(getIntent().getExtras().getString("lang", ""));
             LANG_FROM = getIntent().getExtras().getString("acronym", "");
 
-            System.out.println(getIntent().getExtras().getString("lang", ""));
+            delete.setVisibility(View.VISIBLE);
         }
     }
 
