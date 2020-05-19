@@ -230,7 +230,7 @@
                 android:background="@drawable/corner_tran"
                 android:fontFamily="@font/promptbold"
                 android:gravity="center"
-                android:text="Tiếng Việt"
+                android:text="Vietnamese"
                 android:textStyle="bold" />
         </LinearLayout>
 

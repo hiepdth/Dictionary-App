@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#f9feff"
     android:orientation="vertical">
     <!--Header-->
@@ -46,22 +47,28 @@
         android:orientation="vertical">
 
 
-        <ImageView
-            android:layout_marginVertical="30dp"
-            android:id="@+id/image"
+        <LinearLayout
+            android:id="@+id/linear"
+            android:layout_below="@id/spinner"
             android:layout_width="300dp"
             android:layout_height="200dp"
             android:layout_centerHorizontal="true"
-            android:background="@drawable/corner_dialog"
-            android:padding="30dp"
-            android:scaleType="fitCenter"
-            android:src="@drawable/logo"
-            android:tint="#fff" />
+            android:layout_marginVertical="30dp"
+            android:background="@drawable/corner_dialog">
+
+            <ImageView
+                android:id="@+id/image"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/corner_dialog"
+                android:padding="30dp" />
+        </LinearLayout>
 
         <LinearLayout
-            android:layout_below="@id/image"
+            android:id="@+id/buttons_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@id/linear"
             android:gravity="center_horizontal"
             android:orientation="horizontal"
             android:paddingHorizontal="30dp"
@@ -116,16 +123,38 @@
 
         </LinearLayout>
 
+        <TextView
+            android:id="@+id/text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="30dp"
+            android:fontFamily="@font/promptbold"
+            android:text="Language: " />
+
+        <com.jaredrummler.materialspinner.MaterialSpinner
+            android:id="@+id/spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text"
+            android:layout_centerHorizontal="true"
+            android:layout_marginHorizontal="30dp"
+            android:fontFamily="@font/promptlight"
+            app:ms_background_color="#d8d8d8"
+            android:gravity="center"
+            android:scrollbars="none"
+            android:textSize="14dp" />
+
         <Button
-            android:layout_alignParentBottom="true"
+            android:enabled="false"
             android:id="@+id/btnRun"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
             android:layout_gravity="bottom"
             android:layout_margin="30dp"
-            android:background="@drawable/corner_dialog"
+            android:background="@drawable/corner_search_edittext_unselect"
             android:fontFamily="@font/promptbold"
             android:text="TRANSALTE"
-            android:textColor="#fff" />
+            android:textColor="#ccc" />
     </RelativeLayout>
 </LinearLayout>

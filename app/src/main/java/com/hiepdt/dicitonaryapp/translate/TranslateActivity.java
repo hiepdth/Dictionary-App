@@ -83,19 +83,25 @@ public class TranslateActivity extends AppCompatActivity {
             }
         });
 
-        if (getIntent().getExtras().getString("text", "")!= null){
-            TEXT_FROM = getIntent().getExtras().getString("text", "");
-        }
-
         List<String> data = new ArrayList<>();
         data.addAll(language.acronym.keySet());
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, data);
 
         spinFrom.setAdapter(adapter);
-        spinFrom.setText("English");
         spinTo.setAdapter(adapter);
+        spinFrom.setText("English");
         spinTo.setText("Vietnamese");
+
+        if (getIntent().getExtras() != null) {
+            TEXT_FROM = getIntent().getExtras().getString("text", "");
+            edFrom.setText(TEXT_FROM);
+
+            spinFrom.setText(getIntent().getExtras().getString("lang", ""));
+            LANG_FROM = getIntent().getExtras().getString("acronym", "");
+
+            System.out.println(getIntent().getExtras().getString("lang", ""));
+        }
     }
 
     private void action() {
@@ -171,6 +177,8 @@ public class TranslateActivity extends AppCompatActivity {
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                TEXT_FROM = "";
+                TEXT_TO = "";
                 edFrom.setText("");
                 tvResult.setText("");
             }
