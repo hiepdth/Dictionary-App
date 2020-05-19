@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -12,8 +13,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.tabs.TabLayout;
 import com.hiepdt.dicitonaryapp.R;
+import com.hiepdt.dicitonaryapp.translate.DetectActivity;
 import com.hiepdt.dicitonaryapp.translate.TranslateActivity;
 
 import java.util.ArrayList;
@@ -27,7 +30,7 @@ public class ResultActivity extends AppCompatActivity {
 
     private ImageView btnBack, btnMenu;
     private TextView tvWord;
-    private LinearLayout btnSearch;
+    private RelativeLayout btnSearch;
 
 
     @Override
@@ -70,9 +73,29 @@ public class ResultActivity extends AppCompatActivity {
         btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ResultActivity.this, TranslateActivity.class);
-                startActivity(intent);
+                BottomSheetDialog dialog = new BottomSheetDialog(ResultActivity.this);
+                dialog.setContentView(R.layout.dialog_load_image);
+                LinearLayout btnDoc = dialog.findViewById(R.id.btnDoc);
+                LinearLayout btnOCR = dialog.findViewById(R.id.btnOCR);
+
+                dialog.show();
+                btnDoc.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(ResultActivity.this, TranslateActivity.class);
+                        startActivity(intent);
+                    }
+                });
+
+                btnOCR.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(ResultActivity.this, DetectActivity.class);
+                        startActivity(intent);
+                    }
+                });
             }
         });
     }
+
 }

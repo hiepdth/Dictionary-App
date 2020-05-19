@@ -83,6 +83,9 @@ public class TranslateActivity extends AppCompatActivity {
             }
         });
 
+        if (getIntent().getExtras().getString("text", "")!= null){
+            TEXT_FROM = getIntent().getExtras().getString("text", "");
+        }
 
         List<String> data = new ArrayList<>();
         data.addAll(language.acronym.keySet());

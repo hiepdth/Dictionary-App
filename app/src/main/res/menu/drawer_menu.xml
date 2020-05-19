@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:id="@+id/important">
+        <item android:title="Main">
+            <menu>
+                <item android:id="@+id/diction"
+                    android:icon="@drawable/logo"
+                    android:title="Diction" />
+                <item android:id="@+id/translate"
+                    android:icon="@mipmap/document"
+                    android:title="Document" />
+                <item android:id="@+id/detect"
+                    android:icon="@mipmap/ocr"
+                    android:title="OCR" />
+
+            </menu>
+        </item>
+    </group>
+    <item android:title="Other">
+        <menu>
+            <item android:id="@+id/history"
+                android:icon="@mipmap/history"
+                android:title="History" />
+            <item android:id="@+id/bookmark"
+                android:icon="@mipmap/bookmark"
+                android:title="Bookmark" />
+        </menu>
+    </item>
+
+</menu>

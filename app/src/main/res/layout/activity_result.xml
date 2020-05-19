@@ -20,14 +20,14 @@
             android:tint="#000" />
 
         <TextView
-            android:gravity="center"
-            android:maxLines="1"
-            android:ellipsize="end"
             android:id="@+id/tvWord"
             android:layout_width="120dp"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
+            android:ellipsize="end"
             android:fontFamily="@font/promptbold"
+            android:gravity="center"
+            android:maxLines="1"
             android:text="Hello world"
             android:textColor="#000" />
 
@@ -37,12 +37,12 @@
             android:layout_height="20dp"
             android:layout_alignParentRight="true"
             android:rotation="90"
-            android:src="@mipmap/menu"
+            android:src="@mipmap/menu_2"
             android:tint="#000" />
 
     </RelativeLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/btnSearch"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -50,31 +50,44 @@
         android:layout_marginHorizontal="20dp"
         android:layout_marginTop="15dp"
         android:background="@drawable/shadow"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
+        android:backgroundTint="@color/start_color"
         android:gravity="center"
         android:orientation="horizontal"
         android:paddingHorizontal="15dp"
         android:paddingVertical="5dp">
 
         <ImageView
+            android:id="@+id/logo"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:src="@mipmap/search"
-            android:tint="#808080" />
+            android:layout_centerVertical="true"
+            android:src="@drawable/logo"
+            android:tint="#fff" />
 
         <TextView
-            android:gravity="center_vertical"
+
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_marginLeft="10dp"
-            android:backgroundTint="#fff"
-            android:fontFamily="@font/promptlight"
-            android:hint="Use Sora Translate"
-            android:textColor="#000"
-            android:textSize="14dp" />
+            android:layout_toLeftOf="@id/btnNext"
+            android:layout_toRightOf="@id/logo"
+            android:fontFamily="@font/promptbold"
+            android:gravity="center"
+            android:hint="Sora Translate"
+            android:textColor="#fff"
+            android:textColorHint="#fff"
+            android:textSize="16dp" />
 
-    </LinearLayout>
+        <ImageView
+            android:id="@+id/btnNext"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:rotation="180"
+            android:src="@mipmap/run" />
+
+    </RelativeLayout>
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/mViewPager"
