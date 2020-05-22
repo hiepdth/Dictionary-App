@@ -75,10 +75,11 @@ public class ResultActivity extends AppCompatActivity {
             public void onClick(View v) {
                 BottomSheetDialog dialog = new BottomSheetDialog(ResultActivity.this);
                 dialog.setContentView(R.layout.dialog_load_image);
+                dialog.show();
                 LinearLayout btnDoc = dialog.findViewById(R.id.btnDoc);
                 LinearLayout btnOCR = dialog.findViewById(R.id.btnOCR);
 
-                dialog.show();
+
                 btnDoc.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

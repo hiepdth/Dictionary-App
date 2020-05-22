@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.hiepdt.dicitonaryapp.R;
+import com.hiepdt.dicitonaryapp.models.APP;
 import com.hiepdt.dicitonaryapp.models.Word;
 import com.hiepdt.dicitonaryapp.search.result.ResultActivity;
 
@@ -42,6 +43,8 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
             public void onClick(View v) {
                 Intent intent = new Intent(mContext, ResultActivity.class);
                 intent.putExtra("word", word.getKey());
+//                int pos = APP.mListWord.indexOf(word.getKey());
+//                intent.putExtra("meaning", APP.mListDiction.get(pos).getMeaning());
                 mContext.startActivity(intent);
             }
         });

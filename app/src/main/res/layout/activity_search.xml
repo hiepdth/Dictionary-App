@@ -4,10 +4,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#f9feff"
-    android:padding="15dp">
+    android:paddingVertical="15dp"
+    android:background="@drawable/white_gradient">
 
     <RelativeLayout
+        android:paddingHorizontal="15dp"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:focusable="true"
@@ -65,6 +66,7 @@
         android:background="#ccc" />
 
     <RelativeLayout
+        android:padding="15dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="30dp">
@@ -79,7 +81,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/mRecyclerView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_below="@id/text"
             android:layout_marginTop="20dp" />
 
@@ -101,7 +103,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/promptlight"
-                android:text="Không tìm thấy từ này"
+                android:text="Searching history is empty"
                 android:textSize="16dp" />
         </LinearLayout>
     </RelativeLayout>

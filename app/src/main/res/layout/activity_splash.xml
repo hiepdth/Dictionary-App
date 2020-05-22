@@ -20,7 +20,7 @@
         android:layout_below="@id/logo"
         android:layout_centerHorizontal="true"
         android:fontFamily="@font/promptbolditalic"
-        android:text="@string/app_name"
+        android:text="SORA"
         android:textColor="#56ccf2"
         android:textSize="30dp" />
 

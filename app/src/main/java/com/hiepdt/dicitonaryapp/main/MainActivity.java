@@ -7,6 +7,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -29,6 +30,9 @@ public class MainActivity extends AppCompatActivity {
     private ImageView btnMenu;
     private DrawerLayout drawer;
 
+    private LinearLayout btnEng, btnVie;
+    private String LANG_DICTION = "EN";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +50,9 @@ public class MainActivity extends AppCompatActivity {
         btnMenu = findViewById(R.id.btnMenu);
         navigationView = findViewById(R.id.navigationView);
         drawer = findViewById(R.id.drawer);
+
+        btnEng = findViewById(R.id.btnEng);
+        btnVie = findViewById(R.id.btnVie);
     }
 
     private void action() {
@@ -53,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, SearchActivity.class);
+                intent.putExtra("LANG_DICTION", LANG_DICTION);
                 startActivity(intent);
             }
         });
@@ -86,6 +94,7 @@ public class MainActivity extends AppCompatActivity {
                 switch (id) {
                     case R.id.diction:
                         intent = new Intent(MainActivity.this, SearchActivity.class);
+                        intent.putExtra("LANG_DICTION", LANG_DICTION);
                         startActivity(intent);
                         break;
                     case R.id.translate:
@@ -106,6 +115,25 @@ public class MainActivity extends AppCompatActivity {
                         break;
                 }
                 return false;
+            }
+        });
+
+        btnEng.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                btnEng.setBackgroundResource(R.drawable.corner_search_edittext_select);
+                btnVie.setBackgroundResource(R.drawable.corner_search_edittext_unselect);
+                LANG_DICTION = "EN";
+                Toast.makeText(MainActivity.this, "Eng-Vie selected!", Toast.LENGTH_SHORT).show();
+            }
+        });
+        btnVie.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                btnVie.setBackgroundResource(R.drawable.corner_search_edittext_select);
+                btnEng.setBackgroundResource(R.drawable.corner_search_edittext_unselect);
+                LANG_DICTION = "VI";
+                Toast.makeText(MainActivity.this, "Vie-Eng selected!", Toast.LENGTH_SHORT).show();
             }
         });
     }

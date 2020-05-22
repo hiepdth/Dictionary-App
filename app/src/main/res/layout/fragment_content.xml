@@ -3,64 +3,70 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/white_gradient"
     android:orientation="vertical"
-    android:background="#f9feff"
-    android:padding="15dp">
+    android:padding="20dp">
 
     <ScrollView
-        android:scrollbars="none"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:scrollbars="none">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/tvWord"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/promptbold"
-                android:text="Hello"
-                android:textColor="#000"
-                android:textSize="26dp" />
-
-            <TextView
-                android:id="@+id/tvLangFrom"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/promptlightitalic"
-                android:text="English" />
-
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginVertical="25dp">
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tvWord"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/promptbold"
+                    android:text="Hello"
+                    android:textColor="#000"
+                    android:textSize="26dp" />
+
+                <TextView
+                    android:id="@+id/tvLangFrom"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tvWord"
+                    android:fontFamily="@font/promptlightitalic"
+                    android:text="English" />
+
 
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
                     android:id="@+id/btnSound"
+                    android:layout_marginTop="30dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_below="@id/tvLangFrom"
                     android:src="@mipmap/speak"
                     app:backgroundTint="#fff"
-                    app:fabCustomSize="48dp"
-                    app:maxImageSize="20dp" />
+                    app:fabCustomSize="40dp"
+                    app:maxImageSize="15dp" />
 
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
-
                     android:id="@+id/btnBookmark"
+                    android:layout_marginTop="30dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_below="@id/tvLangFrom"
                     android:layout_marginLeft="15dp"
                     android:layout_toRightOf="@id/btnSound"
                     android:src="@mipmap/bookmark_1"
                     app:backgroundTint="#fff"
-                    app:fabCustomSize="48dp"
-                    app:maxImageSize="20dp" />
+                    app:fabCustomSize="40dp"
+                    app:maxImageSize="15dp" />
 
                 <LinearLayout
+                    android:layout_marginTop="30dp"
+                    android:layout_below="@id/tvLangFrom"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -68,7 +74,7 @@
                     android:background="@drawable/border_hand"
                     android:gravity="center"
                     android:paddingHorizontal="15dp"
-                    android:paddingVertical="10dp">
+                    android:paddingVertical="8dp">
 
                     <ImageView
                         android:layout_width="20dp"
@@ -82,19 +88,20 @@
                         android:fontFamily="@font/promptbold"
                         android:text="Gesture" />
                 </LinearLayout>
-            </RelativeLayout>
 
-            <!--Content-->
-            <TextView
-                android:id="@+id/tvMean"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="20dp"
-                android:background="@drawable/background_word"
-                android:fontFamily="@font/promptlight"
-                android:padding="10dp"
-                android:text="Hello"
-                android:textColor="#000" />
+                <!--Content-->
+                <TextView
+                    android:id="@+id/tvMean"
+                    android:layout_below="@id/btnSound"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="50dp"
+                    android:background="@drawable/background_word"
+                    android:fontFamily="@font/promptlight"
+                    android:padding="10dp"
+                    android:text="Hello"
+                    android:textColor="#000" />
+            </RelativeLayout>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

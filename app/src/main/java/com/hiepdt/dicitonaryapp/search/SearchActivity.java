@@ -34,6 +34,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.hiepdt.dicitonaryapp.R;
 import com.hiepdt.dicitonaryapp.hepler.DBHelper;
 import com.hiepdt.dicitonaryapp.models.APP;
+import com.hiepdt.dicitonaryapp.models.Diction;
 import com.hiepdt.dicitonaryapp.models.Language;
 import com.hiepdt.dicitonaryapp.models.Word;
 import com.hiepdt.dicitonaryapp.search.result.ResultActivity;
@@ -64,6 +65,12 @@ public class SearchActivity extends AppCompatActivity {
 
     private String LANG = "vi";
 
+    private String LANG_DICTION = "EN";
+
+
+    private ArrayList<String>mListWord;
+    private ArrayList<Diction>mListDiction;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,6 +83,8 @@ public class SearchActivity extends AppCompatActivity {
 
     private void init() {
 
+        mListWord = new ArrayList<>();
+        mListDiction = new ArrayList<>();
         helper = new DBHelper(this);
         language = new Language();
 
@@ -94,14 +103,28 @@ public class SearchActivity extends AppCompatActivity {
         mAdapter = new SearchAdapter(this, APP.mListHis);
         mRecyclerView.setAdapter(mAdapter);
 
-        ArrayAdapter arrayAdapter = new ArrayAdapter(this, R.layout.item_suggest, APP.mListWord);
+        if (getIntent().getExtras().getString("LANG_DICTION") != null){
+            LANG_DICTION = getIntent().getExtras().getString("LANG_DICTION", "EN");
+        }
+
+        if (LANG_DICTION.equalsIgnoreCase("en")){
+            mListWord = APP.mListWordEng;
+            mListDiction = APP.mListDictionEng;
+        } else {
+            mListWord = APP.mListWordVie;
+            mListDiction = APP.mListDictionVie;
+        }
+        if (APP.mListHis.size() == 0) {
+            empty.setVisibility(View.VISIBLE);
+        }
+
+        ArrayAdapter arrayAdapter = new ArrayAdapter(this, R.layout.item_suggest, mListWord);
         edSearch.setAdapter(arrayAdapter);
         edSearch.setThreshold(1);
 
         mSpeechRecongizer = SpeechRecognizer.createSpeechRecognizer(this);
         mSpeechRecognizerIntent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         mSpeechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
-//        mSpeechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "vi");
     }
 
     private void action() {
@@ -119,9 +142,9 @@ public class SearchActivity extends AppCompatActivity {
                 edSearch.setText("");
                 Intent intent = new Intent(SearchActivity.this, ResultActivity.class);
                 intent.putExtra("word", word);
-                int pos = APP.mListWord.indexOf(word);
+                int pos = mListWord.indexOf(word);
 
-                intent.putExtra("meaning", APP.mListDiction.get(pos).getMeaning());
+                intent.putExtra("meaning", mListDiction.get(pos).getMeaning());
                 helper.insertWord(new Word(word, System.currentTimeMillis(), "history"));
                 startActivity(intent);
             }
@@ -200,7 +223,7 @@ public class SearchActivity extends AppCompatActivity {
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, data);
         spinner.setAdapter(adapter);
-        spinner.setText("Vietnamese");
+        spinner.setText("English");
 
         spinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener() {
             @Override

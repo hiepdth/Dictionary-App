@@ -1,13 +1,25 @@
 package com.hiepdt.dicitonaryapp.translate;
 
+import android.Manifest;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Color;
+import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.provider.Settings;
+import android.speech.RecognitionListener;
+import android.speech.RecognizerIntent;
+import android.speech.SpeechRecognizer;
 import android.speech.tts.TextToSpeech;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -17,12 +29,15 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.hiepdt.dicitonaryapp.R;
 import com.hiepdt.dicitonaryapp.models.Language;
 import com.hiepdt.dicitonaryapp.models.Translate;
 import com.jaredrummler.materialspinner.MaterialSpinner;
+import com.scwang.wave.MultiWaveHeader;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +46,10 @@ import java.util.Locale;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class TranslateActivity extends AppCompatActivity {
+    private SpeechRecognizer mSpeechRecongizer;
+    private Intent mSpeechRecognizerIntent;
+    private MultiWaveHeader wave1, wave2;
+
     private MaterialSpinner spinFrom, spinTo;
     private ImageView speakFrom, speakTo;
     private EditText edFrom;
@@ -102,10 +121,18 @@ public class TranslateActivity extends AppCompatActivity {
             edFrom.setText(TEXT_FROM);
 
             spinFrom.setText(getIntent().getExtras().getString("lang", ""));
+            tvFrom.setText(getIntent().getExtras().getString("lang", ""));
+
             LANG_FROM = getIntent().getExtras().getString("acronym", "");
 
             delete.setVisibility(View.VISIBLE);
         }
+
+        mSpeechRecongizer = SpeechRecognizer.createSpeechRecognizer(this);
+        mSpeechRecognizerIntent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+        mSpeechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+
+
     }
 
     private void action() {
@@ -202,6 +229,13 @@ public class TranslateActivity extends AppCompatActivity {
                 tvResult.setText("");
             }
         });
+
+        btnVoice.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                speechToText();
+            }
+        });
     }
 
     public void onPause() {
@@ -210,6 +244,141 @@ public class TranslateActivity extends AppCompatActivity {
             tts.shutdown();
         }
         super.onPause();
+    }
+
+    private void checkPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO)
+                    == PackageManager.PERMISSION_GRANTED) {
+                Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.parse("package:" + getPackageName()));
+                startActivity(intent);
+                finish();
+            }
+        }
+    }
+
+    private void speechToText() {
+        final BottomSheetDialog dialog = new BottomSheetDialog(this);
+        dialog.setContentView(R.layout.dialog_speech);
+        final ImageView btnVoice = dialog.findViewById(R.id.btnVoice);
+        final TextView tvDetect = dialog.findViewById(R.id.tvDetect);
+        final MaterialSpinner spinner = dialog.findViewById(R.id.spinner);
+        spinner.setVisibility(View.GONE);
+
+
+        wave1 = dialog.findViewById(R.id.wave1);
+        wave2 = dialog.findViewById(R.id.wave2);
+
+        wave1.setStartColor(Color.parseColor("#ffffff"));
+        wave1.setCloseColor(Color.parseColor("#ffffff"));
+        wave1.setColorAlpha(.4f);
+        wave1.setVelocity(2);
+        wave1.setProgress(0.8f);
+        wave1.stop();
+        wave1.setGradientAngle(45);
+
+        wave2.setStartColor(Color.parseColor("#ffffff"));
+        wave2.setCloseColor(Color.parseColor("#ffffff"));
+        wave2.setColorAlpha(.4f);
+        wave2.setVelocity(2);
+        wave2.setProgress(0.8f);
+        wave2.stop();
+        wave2.setGradientAngle(45);
+        checkPermission();
+        btnVoice.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                btnVoice.setOnTouchListener(new View.OnTouchListener() {
+                    @Override
+                    public boolean onTouch(View v, MotionEvent event) {
+                        switch (event.getAction()) {
+                            case MotionEvent.ACTION_UP:
+                                wave1.setVisibility(View.INVISIBLE);
+                                wave2.setVisibility(View.INVISIBLE);
+                                wave1.stop();
+                                wave2.stop();
+                                mSpeechRecongizer.stopListening();
+                                tvDetect.setHint("You will see the input here");
+                                break;
+                            case MotionEvent.ACTION_DOWN:
+                                tvDetect.setText("");
+                                tvDetect.setHint("Listening ... ");
+                                wave1.setVisibility(View.VISIBLE);
+                                wave2.setVisibility(View.VISIBLE);
+                                wave1.start();
+                                wave2.start();
+                                mSpeechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, LANG_FROM);
+                                mSpeechRecongizer.startListening(mSpeechRecognizerIntent);
+                                break;
+                        }
+                        return false;
+                    }
+                });
+            }
+        });
+        dialog.show();
+
+        mSpeechRecongizer.setRecognitionListener(new RecognitionListener() {
+            @Override
+            public void onReadyForSpeech(Bundle params) {
+
+            }
+
+            @Override
+            public void onBeginningOfSpeech() {
+
+            }
+
+            @Override
+            public void onRmsChanged(float rmsdB) {
+
+            }
+
+            @Override
+            public void onBufferReceived(byte[] buffer) {
+
+            }
+
+            @Override
+            public void onEndOfSpeech() {
+
+            }
+
+            @Override
+            public void onError(int error) {
+
+            }
+
+            @Override
+            public void onResults(Bundle results) {
+                final ArrayList<String> matches = results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
+                if (matches != null) {
+                    wave1.setVisibility(View.INVISIBLE);
+                    wave2.setVisibility(View.INVISIBLE);
+
+//                    System.out.println(matches.get(0));
+                    tvDetect.setText(matches.get(0));
+                    Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            dialog.dismiss();
+                        }
+                    }, 1000);
+                    edFrom.setText(matches.get(0));
+                }
+            }
+
+            @Override
+            public void onPartialResults(Bundle partialResults) {
+
+            }
+
+            @Override
+            public void onEvent(int eventType, Bundle params) {
+            }
+        });
+
     }
 
     public void translate() {
@@ -235,7 +404,6 @@ public class TranslateActivity extends AppCompatActivity {
         tvTo.setText(spinFrom.getText().toString());
         spinFrom.setText(temp);
         tvFrom.setText(temp);
-
 
 
     }

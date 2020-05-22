@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#f9feff"
+    android:background="@drawable/white_gradient"
     android:orientation="vertical">
     <!--Header-->
     <RelativeLayout
@@ -73,8 +73,9 @@
         android:orientation="vertical">
 
         <LinearLayout
+            android:layout_marginHorizontal="30dp"
             android:id="@+id/linear"
-            android:layout_width="300dp"
+            android:layout_width="match_parent"
             android:layout_height="200dp"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="30dp"
@@ -86,7 +87,7 @@
                 android:scaleType="fitXY"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/corner_dialog" />
+                android:background="@drawable/blue_gradient" />
         </LinearLayout>
 
         <LinearLayout

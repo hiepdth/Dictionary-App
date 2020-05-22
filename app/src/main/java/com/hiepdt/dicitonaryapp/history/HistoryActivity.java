@@ -14,8 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.hiepdt.dicitonaryapp.R;
 import com.hiepdt.dicitonaryapp.models.APP;
 
-import java.util.ArrayList;
-
 public class HistoryActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
     private ImageView btnBack;

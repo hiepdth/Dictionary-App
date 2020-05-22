@@ -1,7 +1,5 @@
 package com.hiepdt.dicitonaryapp.translate;
 
-import android.Manifest;
-import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.content.res.AssetManager;
@@ -15,11 +13,9 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
 
 import com.googlecode.tesseract.android.TessBaseAPI;
 import com.hiepdt.dicitonaryapp.R;
@@ -34,7 +30,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
-import java.util.List;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
@@ -49,7 +44,7 @@ public class DetectActivity extends AppCompatActivity implements View.OnClickLis
     private Button btnRun;
     private MaterialSpinner spinner;
     private Language language;
-    private String LANG = "";
+    private String LANG = "vie";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -71,9 +66,10 @@ public class DetectActivity extends AppCompatActivity implements View.OnClickLis
         btnRun = findViewById(R.id.btnRun);
         spinner = findViewById(R.id.spinner);
 
-        List<String> data = new ArrayList<>();
-        data.addAll(language.acronym.keySet());
-
+        ArrayList<String> data = new ArrayList<>();
+        data.add("English");
+        data.add("Vietnamese");
+        data.add("Japanese");
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, data);
         spinner.setAdapter(adapter);
         spinner.setText("");
@@ -89,7 +85,7 @@ public class DetectActivity extends AppCompatActivity implements View.OnClickLis
             @Override
             public void onItemSelected(MaterialSpinner view, int position, long id, Object item) {
                 LANG = convertToAcronym(spinner.getText().toString());
-
+                System.out.println(LANG);
             }
         });
     }
@@ -105,7 +101,6 @@ public class DetectActivity extends AppCompatActivity implements View.OnClickLis
                 values.put(MediaStore.Images.Media.TITLE, "NewPic");
                 values.put(MediaStore.Images.Media.DESCRIPTION, "Image To Text");
                 uri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
-
                 Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
                 startActivityForResult(cameraIntent, 2);
@@ -124,7 +119,7 @@ public class DetectActivity extends AppCompatActivity implements View.OnClickLis
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
-            if (requestCode == CropImage.PICK_IMAGE_CHOOSER_REQUEST_CODE ) {
+            if (requestCode == CropImage.PICK_IMAGE_CHOOSER_REQUEST_CODE) {
                 Uri uriImage = CropImage.getPickImageResultUri(this, data);
                 if (CropImage.isReadExternalStoragePermissionsRequired(this, uriImage)) {
                     uri = uriImage;
@@ -150,8 +145,6 @@ public class DetectActivity extends AppCompatActivity implements View.OnClickLis
     private void startCrop(Uri uri) {
         CropImage.activity(uri).setGuidelines(CropImageView.Guidelines.ON).setMultiTouchEnabled(true).start(this);
     }
-
-    //Todo:
 
     private void initOCR(String lang) throws IOException {
         prepareLanguageDir(lang);
@@ -198,7 +191,7 @@ public class DetectActivity extends AppCompatActivity implements View.OnClickLis
             intent.putExtra("acronym", language.acronym.get(spinner.getText().toString()));
             startActivity(intent);
         } catch (Exception e) {
-            Toast.makeText(DetectActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+            e.printStackTrace();
         }
     }
 
@@ -211,23 +204,26 @@ public class DetectActivity extends AppCompatActivity implements View.OnClickLis
             case "Vietnamese":
                 l = "vie";
                 break;
-            case "Japan":
+            case "Japanese":
                 l = "jpn";
-                break;
-            case "Chinese":
-                l = "chi_sim";
-                break;
-            case "Korea":
-                l = "kor";
-                break;
-            case "Thai":
-                l = "thai";
-                break;
-            case "Lao":
-                l = "lao";
                 break;
         }
         return l;
+    }
+
+    //---------------------------------------------//
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (uri != null && !LANG.isEmpty()) {
+            btnRun.setEnabled(true);
+            btnRun.setBackgroundResource(R.drawable.corner_button_select);
+            btnRun.setTextColor(Color.parseColor("#ffffff"));
+        } else {
+            btnRun.setEnabled(false);
+            btnRun.setBackgroundResource(R.drawable.corner_search_edittext_unselect);
+            btnRun.setTextColor(Color.parseColor("#cccccc"));
+        }
     }
 
     class doOCR extends AsyncTask<Void, Void, String> {
@@ -252,21 +248,6 @@ public class DetectActivity extends AppCompatActivity implements View.OnClickLis
         @Override
         protected void onPostExecute(String response) {
             pDialog.dismiss();
-        }
-    }
-
-    //---------------------------------------------//
-    @Override
-    protected void onResume() {
-        super.onResume();
-        if (uri != null && !LANG.isEmpty()) {
-            btnRun.setEnabled(true);
-            btnRun.setBackgroundResource(R.drawable.corner_dialog);
-            btnRun.setTextColor(Color.parseColor("#ffffff"));
-        } else {
-            btnRun.setEnabled(false);
-            btnRun.setBackgroundResource(R.drawable.corner_search_edittext_unselect);
-            btnRun.setTextColor(Color.parseColor("#cccccc"));
         }
     }
 
