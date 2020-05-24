@@ -65,11 +65,8 @@ public class SearchActivity extends AppCompatActivity {
 
     private String LANG = "vi";
 
-    private String LANG_DICTION = "EN";
-
-
-    private ArrayList<String>mListWord;
-    private ArrayList<Diction>mListDiction;
+    private ArrayList<String> mListWord;
+    private ArrayList<Diction> mListDiction;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -82,10 +79,12 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     private void init() {
-
         mListWord = new ArrayList<>();
         mListDiction = new ArrayList<>();
         helper = new DBHelper(this);
+
+        APP.mListHis = helper.getWordWithType("history", APP.LANG_DICTION);
+
         language = new Language();
 
         btnBack = findViewById(R.id.btnBack);
@@ -95,6 +94,16 @@ public class SearchActivity extends AppCompatActivity {
         mRecyclerView = findViewById(R.id.mRecyclerView);
         empty = findViewById(R.id.empty);
         root = findViewById(R.id.root);
+
+
+        if (APP.LANG_DICTION.equalsIgnoreCase("en")) {
+            mListWord = APP.mListWordEng;
+            mListDiction = APP.mListDictionEng;
+        } else {
+            mListWord = APP.mListWordVie;
+            mListDiction = APP.mListDictionVie;
+        }
+
         RecyclerView.LayoutManager layoutManager1 = new LinearLayoutManager(this, RecyclerView.VERTICAL, true);
         mRecyclerView.setLayoutManager(layoutManager1);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -103,17 +112,7 @@ public class SearchActivity extends AppCompatActivity {
         mAdapter = new SearchAdapter(this, APP.mListHis);
         mRecyclerView.setAdapter(mAdapter);
 
-        if (getIntent().getExtras().getString("LANG_DICTION") != null){
-            LANG_DICTION = getIntent().getExtras().getString("LANG_DICTION", "EN");
-        }
 
-        if (LANG_DICTION.equalsIgnoreCase("en")){
-            mListWord = APP.mListWordEng;
-            mListDiction = APP.mListDictionEng;
-        } else {
-            mListWord = APP.mListWordVie;
-            mListDiction = APP.mListDictionVie;
-        }
         if (APP.mListHis.size() == 0) {
             empty.setVisibility(View.VISIBLE);
         }
@@ -145,7 +144,7 @@ public class SearchActivity extends AppCompatActivity {
                 int pos = mListWord.indexOf(word);
 
                 intent.putExtra("meaning", mListDiction.get(pos).getMeaning());
-                helper.insertWord(new Word(word, System.currentTimeMillis(), "history"));
+                helper.insertWord(new Word(word, System.currentTimeMillis(), APP.LANG_DICTION, "history"));
                 startActivity(intent);
             }
         });

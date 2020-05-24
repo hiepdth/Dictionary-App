@@ -67,9 +67,9 @@ public class DetectActivity extends AppCompatActivity implements View.OnClickLis
         spinner = findViewById(R.id.spinner);
 
         ArrayList<String> data = new ArrayList<>();
-        data.add("English");
-        data.add("Vietnamese");
         data.add("Japanese");
+        data.add("Vietnamese");
+        data.add("English");
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, data);
         spinner.setAdapter(adapter);
         spinner.setText("");
@@ -155,6 +155,7 @@ public class DetectActivity extends AppCompatActivity implements View.OnClickLis
     private void prepareLanguageDir(String lang) throws IOException {
         File dir = new File(getFilesDir() + "/tessdata");
         if (!dir.exists()) {
+            System.out.println("mkdir");
             dir.mkdirs();
         }
 
@@ -166,9 +167,8 @@ public class DetectActivity extends AppCompatActivity implements View.OnClickLis
 
     private void copyFile(String lang) throws IOException {
         AssetManager manager = getAssets();
-        InputStream is = manager.open("/tessdata/" + lang + ".traineddata");
-        OutputStream os = new FileOutputStream(getFilesDir() +
-                "/tessdata/" + lang + ".traineddata");
+        InputStream is = manager.open("tessdata/" + lang + ".traineddata");
+        OutputStream os = new FileOutputStream(getFilesDir() + "/tessdata/" + lang + ".traineddata");
         byte[] buffer = new byte[1024];
         int read;
         while ((read = is.read(buffer)) != -1) {
@@ -182,6 +182,7 @@ public class DetectActivity extends AppCompatActivity implements View.OnClickLis
 
     public void doRecognize() {
         try {
+            System.out.println(LANG);
             initOCR(LANG);
             tessBaseAPI.setImage(MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri));
             String result = tessBaseAPI.getUTF8Text();

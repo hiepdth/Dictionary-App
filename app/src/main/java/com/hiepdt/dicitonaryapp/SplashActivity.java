@@ -1,17 +1,13 @@
 package com.hiepdt.dicitonaryapp;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
-import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.hiepdt.dicitonaryapp.hepler.DBHelper;
 import com.hiepdt.dicitonaryapp.hepler.Database;
 import com.hiepdt.dicitonaryapp.main.MainActivity;
 import com.hiepdt.dicitonaryapp.models.APP;
@@ -23,12 +19,6 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class SplashActivity extends AppCompatActivity {
 
-    @VisibleForTesting
-    public ProgressDialog mProgressDialog;
-    private SharedPreferences sp;
-    private SharedPreferences.Editor editor;
-    private DBHelper helper;
-
     private Database db = new Database();
     private SweetAlertDialog pDialog;
 
@@ -38,16 +28,10 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
         getSupportActionBar().hide();
 
-        sp = getSharedPreferences("db", MODE_PRIVATE);
-        editor = sp.edit();
-        helper = new DBHelper(this);
         APP.mListWordEng = new ArrayList<>();
         APP.mListWordVie = new ArrayList<>();
         APP.mListDictionEng = new ArrayList<>();
         APP.mListDictionVie = new ArrayList<>();
-
-        APP.mListHis = new ArrayList<>();
-        APP.mListMark = new ArrayList<>();
         new ReadDB().execute();
     }
 

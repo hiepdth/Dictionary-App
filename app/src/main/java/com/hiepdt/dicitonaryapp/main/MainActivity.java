@@ -17,6 +17,7 @@ import com.google.android.material.navigation.NavigationView;
 import com.hiepdt.dicitonaryapp.R;
 import com.hiepdt.dicitonaryapp.bookmark.BookmarkActivity;
 import com.hiepdt.dicitonaryapp.history.HistoryActivity;
+import com.hiepdt.dicitonaryapp.models.APP;
 import com.hiepdt.dicitonaryapp.search.SearchActivity;
 import com.hiepdt.dicitonaryapp.translate.DetectActivity;
 import com.hiepdt.dicitonaryapp.translate.TranslateActivity;
@@ -31,7 +32,6 @@ public class MainActivity extends AppCompatActivity {
     private DrawerLayout drawer;
 
     private LinearLayout btnEng, btnVie;
-    private String LANG_DICTION = "EN";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +60,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, SearchActivity.class);
-                intent.putExtra("LANG_DICTION", LANG_DICTION);
                 startActivity(intent);
             }
         });
@@ -94,7 +93,6 @@ public class MainActivity extends AppCompatActivity {
                 switch (id) {
                     case R.id.diction:
                         intent = new Intent(MainActivity.this, SearchActivity.class);
-                        intent.putExtra("LANG_DICTION", LANG_DICTION);
                         startActivity(intent);
                         break;
                     case R.id.translate:
@@ -123,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 btnEng.setBackgroundResource(R.drawable.corner_search_edittext_select);
                 btnVie.setBackgroundResource(R.drawable.corner_search_edittext_unselect);
-                LANG_DICTION = "EN";
+                APP.LANG_DICTION = "en";
                 Toast.makeText(MainActivity.this, "Eng-Vie selected!", Toast.LENGTH_SHORT).show();
             }
         });
@@ -132,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 btnVie.setBackgroundResource(R.drawable.corner_search_edittext_select);
                 btnEng.setBackgroundResource(R.drawable.corner_search_edittext_unselect);
-                LANG_DICTION = "VI";
+                APP.LANG_DICTION = "vi";
                 Toast.makeText(MainActivity.this, "Vie-Eng selected!", Toast.LENGTH_SHORT).show();
             }
         });

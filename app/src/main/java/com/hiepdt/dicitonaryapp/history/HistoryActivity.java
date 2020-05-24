@@ -12,14 +12,15 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.hiepdt.dicitonaryapp.R;
+import com.hiepdt.dicitonaryapp.hepler.DBHelper;
 import com.hiepdt.dicitonaryapp.models.APP;
 
 public class HistoryActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
     private ImageView btnBack;
     private HistoryAdapter mAdapter;
-
     private LinearLayout linearEmpty;
+    private DBHelper helper;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -32,6 +33,8 @@ public class HistoryActivity extends AppCompatActivity {
 
 
     private void init() {
+        helper = new DBHelper(this);
+        APP.mListHis = helper.getWordWithType("history", APP.LANG_DICTION);
         btnBack = findViewById(R.id.btnBack);
         mRecyclerView = findViewById(R.id.mRecyclerView);
         linearEmpty = findViewById(R.id.linearEmpty);

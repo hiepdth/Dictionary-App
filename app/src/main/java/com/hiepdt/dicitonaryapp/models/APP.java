@@ -12,4 +12,6 @@ public class APP {
 
     public static ArrayList<Word> mListHis;
     public static ArrayList<Word> mListMark;
+
+    public static String LANG_DICTION = "en";
 }

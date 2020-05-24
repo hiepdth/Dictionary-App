@@ -43,8 +43,13 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
             public void onClick(View v) {
                 Intent intent = new Intent(mContext, ResultActivity.class);
                 intent.putExtra("word", word.getKey());
-//                int pos = APP.mListWord.indexOf(word.getKey());
-//                intent.putExtra("meaning", APP.mListDiction.get(pos).getMeaning());
+                if (APP.LANG_DICTION.equalsIgnoreCase("en")) {
+                    int pos = APP.mListWordEng.indexOf(word.getKey());
+                    intent.putExtra("meaning", APP.mListDictionEng.get(pos).getMeaning());
+                } else {
+                    int pos = APP.mListWordVie.indexOf(word.getKey());
+                    intent.putExtra("meaning", APP.mListDictionVie.get(pos).getMeaning());
+                }
                 mContext.startActivity(intent);
             }
         });

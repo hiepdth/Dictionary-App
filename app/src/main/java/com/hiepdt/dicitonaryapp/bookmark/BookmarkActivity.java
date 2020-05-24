@@ -33,7 +33,9 @@ public class BookmarkActivity extends AppCompatActivity {
     }
 
     private void init() {
+
         helper = new DBHelper(this);
+        APP.mListMark = helper.getWordWithType("bookmark", APP.LANG_DICTION);
         btnBack = findViewById(R.id.btnBack);
         mRecyclerView = findViewById(R.id.mRecyclerView);
         linearEmpty = findViewById(R.id.linearEmpty);

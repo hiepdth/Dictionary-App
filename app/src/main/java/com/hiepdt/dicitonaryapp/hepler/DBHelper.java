@@ -25,6 +25,7 @@ public class DBHelper extends SQLiteOpenHelper {
             "( id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, " +
             "                word VARCHAR(20) NOT NULL ," +
             "                timestamp LONG NOT NULL, " +
+            "                lang VARCHAR(3) NOT NULL, " +
             "                type VARCHAR(8) NOT NULL)";
 
     private SQLiteDatabase sqLiteDatabase;
@@ -57,27 +58,36 @@ public class DBHelper extends SQLiteOpenHelper {
         contentValues = new ContentValues();
         contentValues.put("word", word.getKey());
         contentValues.put("timestamp", word.getTimestamp());
+        contentValues.put("lang", word.getLang());
         contentValues.put("type", word.getType());
         sqLiteDatabase.insert(TABLE_WORDS, null, contentValues);
         closeDB();
     }
 
-    public ArrayList<Word> getWordWithType(String type) {
+    public ArrayList<Word> getWordWithType(String type, String lang) {
         sqLiteDatabase = getReadableDatabase();
         cursor = sqLiteDatabase.query(true, TABLE_WORDS, null, null, null, null, null, null, null);
         ArrayList<Word> mListWord = new ArrayList<>();
         while (cursor.moveToNext()) {
             String _type = cursor.getString(cursor.getColumnIndex("type"));
-            if (_type.equalsIgnoreCase(type)) {
+            String _lang = cursor.getString(cursor.getColumnIndex("lang"));
+
+            if (_type.equalsIgnoreCase(type) && _lang.equalsIgnoreCase(lang)) {
                 int id = cursor.getInt(cursor.getColumnIndex("id"));
                 String key = cursor.getString(cursor.getColumnIndex("word"));
                 long timestamp = cursor.getLong(cursor.getColumnIndex("timestamp"));
-                Word word = new Word(id, key, timestamp, _type);
+                Word word = new Word(id, key, timestamp, _lang, _type);
                 mListWord.add(word);
             }
         }
         closeDB();
         return mListWord;
+    }
+
+    //---deletes a particular title---
+    public boolean deleteWord(String name, String type) {
+        sqLiteDatabase = getWritableDatabase();
+        return sqLiteDatabase.delete(TABLE_WORDS, "word=? and type=?", new String[]{name, type}) > 0;
     }
 
     //Todo: Đóng Database

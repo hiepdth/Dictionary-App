@@ -4,19 +4,34 @@ public class Word {
     private int id;
     private String key;
     private long timestamp;
+    private String lang;
     private String type;
 
-    public Word(){}
-    public Word(String key, long timestamp, String type) {
+    public Word() {
+    }
+
+    public Word(String key, long timestamp, String lang, String type) {
         this.key = key;
         this.timestamp = timestamp;
         this.type = type;
+        this.lang = lang;
     }
-    public Word(int id, String key, long timestamp, String type) {
+
+    public Word(int id, String key, long timestamp, String lang, String type) {
         this.id = id;
         this.key = key;
         this.timestamp = timestamp;
         this.type = type;
+        this.lang = lang;
+
+    }
+
+    public String getLang() {
+        return lang;
+    }
+
+    public void setLang(String lang) {
+        this.lang = lang;
     }
 
     public int getId() {
