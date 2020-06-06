@@ -1,8 +1,6 @@
 package com.hiepdt.dicitonaryapp;
 
 import android.content.Intent;
-import android.graphics.Color;
-import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -32,38 +30,10 @@ public class SplashActivity extends AppCompatActivity {
         APP.mListWordVie = new ArrayList<>();
         APP.mListDictionEng = new ArrayList<>();
         APP.mListDictionVie = new ArrayList<>();
-        new ReadDB().execute();
+        db.readDBFromZip(SplashActivity.this, APP.mListWordEng, APP.mListDictionEng, "e_v.zip", "en", "vi");
+        db.readDBFromZip(SplashActivity.this, APP.mListWordVie, APP.mListDictionVie, "v_e.zip", "vi", "en");
+        Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
     }
-
-
-    class ReadDB extends AsyncTask<Void, Void, String> {
-
-        @Override
-        protected String doInBackground(Void... voids) {
-            publishProgress();
-            db.readDBFromZip(SplashActivity.this, APP.mListWordEng, APP.mListDictionEng, "e_v.zip", "en", "vi");
-            db.readDBFromZip(SplashActivity.this, APP.mListWordVie, APP.mListDictionVie, "v_e.zip", "vi", "en");
-
-            return null;
-        }
-
-        @Override
-        protected void onProgressUpdate(Void... values) {
-            super.onProgressUpdate(values);
-            pDialog = new SweetAlertDialog(SplashActivity.this, SweetAlertDialog.PROGRESS_TYPE);
-            pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
-            pDialog.setTitleText("Loading");
-            pDialog.setCancelable(false);
-            pDialog.show();
-        }
-
-        @Override
-        protected void onPostExecute(String response) {
-            pDialog.dismiss();
-            Intent intent = new Intent(SplashActivity.this, MainActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(intent);
-        }
-    }
-
 }

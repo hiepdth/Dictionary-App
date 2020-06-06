@@ -44,7 +44,7 @@ public class HistoryActivity extends AppCompatActivity {
             mRecyclerView.setVisibility(View.INVISIBLE);
             return;
         } else {
-            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(HistoryActivity.this, RecyclerView.VERTICAL, false);
+            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(HistoryActivity.this, RecyclerView.VERTICAL, true);
             mRecyclerView.setLayoutManager(layoutManager);
             mRecyclerView.setItemAnimator(new DefaultItemAnimator());
             mAdapter = new HistoryAdapter(HistoryActivity.this, APP.mListHis);

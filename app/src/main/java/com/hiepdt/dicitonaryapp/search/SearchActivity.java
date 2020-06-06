@@ -99,9 +99,11 @@ public class SearchActivity extends AppCompatActivity {
         if (APP.LANG_DICTION.equalsIgnoreCase("en")) {
             mListWord = APP.mListWordEng;
             mListDiction = APP.mListDictionEng;
+            edSearch.setHint("English diction");
         } else {
             mListWord = APP.mListWordVie;
             mListDiction = APP.mListDictionVie;
+            edSearch.setHint("Vietnamese diction");
         }
 
         RecyclerView.LayoutManager layoutManager1 = new LinearLayoutManager(this, RecyclerView.VERTICAL, true);

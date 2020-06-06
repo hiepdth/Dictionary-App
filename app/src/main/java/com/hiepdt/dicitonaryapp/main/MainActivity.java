@@ -22,6 +22,8 @@ import com.hiepdt.dicitonaryapp.search.SearchActivity;
 import com.hiepdt.dicitonaryapp.translate.DetectActivity;
 import com.hiepdt.dicitonaryapp.translate.TranslateActivity;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class MainActivity extends AppCompatActivity {
 
     private LinearLayout btnSearch;
@@ -32,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
     private DrawerLayout drawer;
 
     private LinearLayout btnEng, btnVie;
+    private CircleImageView imgSearch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,9 +56,18 @@ public class MainActivity extends AppCompatActivity {
 
         btnEng = findViewById(R.id.btnEng);
         btnVie = findViewById(R.id.btnVie);
+
+        imgSearch = findViewById(R.id.imgSearch);
     }
 
     private void action() {
+        imgSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, SearchActivity.class);
+                startActivity(intent);
+            }
+        });
         btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

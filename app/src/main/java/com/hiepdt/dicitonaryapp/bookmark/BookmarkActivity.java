@@ -45,7 +45,7 @@ public class BookmarkActivity extends AppCompatActivity {
             mRecyclerView.setVisibility(View.INVISIBLE);
             return;
         } else {
-            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(BookmarkActivity.this, RecyclerView.VERTICAL, false);
+            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(BookmarkActivity.this, RecyclerView.VERTICAL, true);
             mRecyclerView.setLayoutManager(layoutManager);
             mRecyclerView.setItemAnimator(new DefaultItemAnimator());
             mAdapter = new BookmarkAdapter(BookmarkActivity.this, APP.mListMark);
