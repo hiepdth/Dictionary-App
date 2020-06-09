@@ -20,8 +20,10 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.hiepdt.dicitonaryapp.R;
 import com.hiepdt.dicitonaryapp.hepler.DBHelper;
 import com.hiepdt.dicitonaryapp.models.APP;
+import com.hiepdt.dicitonaryapp.models.Diction;
 import com.hiepdt.dicitonaryapp.models.Word;
 
+import java.util.ArrayList;
 import java.util.Locale;
 
 public class ContentFragment extends Fragment {
@@ -34,6 +36,9 @@ public class ContentFragment extends Fragment {
     private DBHelper helper;
 
     private boolean isBookmark;
+
+    private ArrayList<String> mListWord;
+    private ArrayList<Diction> mListDiction;
 
     @Nullable
     @Override
@@ -53,9 +58,19 @@ public class ContentFragment extends Fragment {
         btnSound = v.findViewById(R.id.btnSound);
         btnBookmark = v.findViewById(R.id.btnBookmark);
 
-        WORD = getActivity().getIntent().getExtras().getString("word", "Không tìm thấy");
-        MEANING = getActivity().getIntent().getExtras().getString("meaning", "Chịu...");
+        if (APP.LANG_DICTION.equalsIgnoreCase("en")) {
+            mListWord = APP.mListWordEng;
+            mListDiction = APP.mListDictionEng;
+        } else {
+            mListWord = APP.mListWordVie;
+            mListDiction = APP.mListDictionVie;
+        }
 
+        WORD = getActivity().getIntent().getExtras().getString("word", "Không tìm thấy");
+
+        int pos = mListWord.indexOf(WORD);
+
+        MEANING = pos != -1 ? mListDiction.get(pos).getMeaning() : "Không có dữ liệu.";
         tts = new TextToSpeech(getContext(), new TextToSpeech.OnInitListener() {
             @Override
             public void onInit(int status) {
@@ -78,13 +93,13 @@ public class ContentFragment extends Fragment {
 
         if (isContain(WORD)) {
             isBookmark = true;
-            btnBookmark.setColorFilter(Color.parseColor("#56ccf2"));
+            btnBookmark.setColorFilter(getContext().getResources().getColor(R.color.start_color));
         }
 
         btnSound.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                btnSound.setColorFilter(Color.parseColor("#56ccf2"));
+                btnSound.setColorFilter(getContext().getResources().getColor(R.color.start_color));
                 tts.speak(getActivity().getIntent().getExtras().getString("word", "Không tìm thấy"), TextToSpeech.QUEUE_FLUSH, null);
                 Handler handler = new Handler();
                 handler.postDelayed(new Runnable() {
@@ -102,7 +117,7 @@ public class ContentFragment extends Fragment {
                     Word word = new Word(WORD, System.currentTimeMillis(), APP.LANG_DICTION, "bookmark");
                     helper.insertWord(word);
                     isBookmark = true;
-                    btnBookmark.setColorFilter(Color.parseColor("#56ccf2"));
+                    btnBookmark.setColorFilter(getContext().getResources().getColor(R.color.start_color));
                     Toast.makeText(getContext(), "Bookmark success!", Toast.LENGTH_SHORT).show();
                 } else {
                     helper.deleteWord(WORD, "bookmark");

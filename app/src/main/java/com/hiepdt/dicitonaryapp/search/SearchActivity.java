@@ -143,10 +143,13 @@ public class SearchActivity extends AppCompatActivity {
                 edSearch.setText("");
                 Intent intent = new Intent(SearchActivity.this, ResultActivity.class);
                 intent.putExtra("word", word);
-                int pos = mListWord.indexOf(word);
+//                int pos = mListWord.indexOf(word);
+//                intent.putExtra("meaning", mListDiction.get(pos).getMeaning());
 
-                intent.putExtra("meaning", mListDiction.get(pos).getMeaning());
                 helper.insertWord(new Word(word, System.currentTimeMillis(), APP.LANG_DICTION, "history"));
+                APP.mListHis = helper.getWordWithType("history", APP.LANG_DICTION);
+                mAdapter = new SearchAdapter(SearchActivity.this, APP.mListHis);
+                mRecyclerView.setAdapter(mAdapter);
                 startActivity(intent);
             }
         });
@@ -196,7 +199,17 @@ public class SearchActivity extends AppCompatActivity {
         btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent();
+                String word = edSearch.getText().toString().trim();
+                edSearch.setText("");
+                Intent intent = new Intent(SearchActivity.this, ResultActivity.class);
+                intent.putExtra("word", word);
+//                int pos = mListWord.indexOf(word);
+//                intent.putExtra("meaning", mListDiction.get(pos).getMeaning());
+                helper.insertWord(new Word(word, System.currentTimeMillis(), APP.LANG_DICTION, "history"));
+                APP.mListHis = helper.getWordWithType("history", APP.LANG_DICTION);
+                mAdapter = new SearchAdapter(SearchActivity.this, APP.mListHis);
+                mRecyclerView.setAdapter(mAdapter);
+                startActivity(intent);
             }
         });
 
