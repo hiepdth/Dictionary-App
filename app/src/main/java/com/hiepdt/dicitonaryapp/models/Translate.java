@@ -1,6 +1,7 @@
 package com.hiepdt.dicitonaryapp.models;
 
 import android.content.Context;
+import android.util.Log;
 import android.widget.Toast;
 
 import java.io.BufferedReader;
@@ -10,7 +11,7 @@ import java.net.URL;
 import java.net.URLEncoder;
 
 public class Translate {
-    public String translate(Context mContext, String langFrom, String langTo, String text) {
+    public String translate(String langFrom, String langTo, String text) {
         StringBuilder response = new StringBuilder();
         try {
             String urlStr = null;
@@ -32,7 +33,7 @@ public class Translate {
             System.out.println("Tra li: "+ response.toString());
             in.close();
         } catch (Exception e) {
-            Toast.makeText(mContext, e.getMessage(), Toast.LENGTH_SHORT).show();
+            Log.d("HTTP: ", e.getMessage());
         }
         return response.toString();
     }

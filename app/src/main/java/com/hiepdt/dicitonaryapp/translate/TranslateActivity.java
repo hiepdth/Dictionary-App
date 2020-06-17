@@ -414,7 +414,7 @@ public class TranslateActivity extends AppCompatActivity {
             if (LANG_FROM.equalsIgnoreCase(LANG_TO)) {
                 return strings[0];
             }
-            String mean = tran.translate(TranslateActivity.this, LANG_FROM, LANG_TO, strings[0]);
+            String mean = tran.translate(LANG_FROM, LANG_TO, strings[0]);
             return mean.trim();
         }
 
