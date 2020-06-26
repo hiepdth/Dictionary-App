@@ -69,7 +69,7 @@ public class TranslateActivity extends AppCompatActivity {
     private Language language;
 
     private ImageView delete;
-
+    private ArrayAdapter<String> adapter;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -109,18 +109,21 @@ public class TranslateActivity extends AppCompatActivity {
         List<String> data = new ArrayList<>();
         data.addAll(language.acronym.keySet());
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, data);
+        adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, data);
 
         spinFrom.setAdapter(adapter);
         spinTo.setAdapter(adapter);
-        spinFrom.setText("English");
-        spinTo.setText("Vietnamese");
+        spinFrom.setSelectedIndex(0);
+        spinTo.setSelectedIndex(1);
+
+//        spinFrom.setText("English");
+//        spinTo.setText("Vietnamese");
 
         if (getIntent().getExtras() != null) {
             TEXT_FROM = getIntent().getExtras().getString("text", "");
             edFrom.setText(TEXT_FROM);
 
-            spinFrom.setText(getIntent().getExtras().getString("lang", ""));
+            spinFrom.setSelectedIndex(adapter.getPosition(getIntent().getExtras().getString("lang", "")));
             tvFrom.setText(getIntent().getExtras().getString("lang", ""));
 
             LANG_FROM = getIntent().getExtras().getString("acronym", "");
@@ -400,11 +403,10 @@ public class TranslateActivity extends AppCompatActivity {
 
         //Swap language
         String temp = spinTo.getText().toString();
-        spinTo.setText(spinFrom.getText().toString());
+        spinTo.setSelectedIndex(adapter.getPosition(spinFrom.getText().toString()));
         tvTo.setText(spinFrom.getText().toString());
-        spinFrom.setText(temp);
+        spinFrom.setSelectedIndex(adapter.getPosition(temp));
         tvFrom.setText(temp);
-
 
     }
 

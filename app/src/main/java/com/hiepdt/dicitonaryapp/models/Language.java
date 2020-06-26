@@ -13,10 +13,5 @@ public class Language {
         acronym = new HashMap<>();
         acronym.put("English", "en");
         acronym.put("Vietnamese", "vi");
-        acronym.put("Japanese", "ja");
-        acronym.put("Chinese", "zh");
-        acronym.put("Korea", "ko");
-        acronym.put("Thai", "th");
-        acronym.put("Lao", "lo");
     }
 }

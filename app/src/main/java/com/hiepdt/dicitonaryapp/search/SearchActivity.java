@@ -237,7 +237,7 @@ public class SearchActivity extends AppCompatActivity {
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, data);
         spinner.setAdapter(adapter);
-        spinner.setText("English");
+        spinner.setSelectedIndex(0);
 
         spinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener() {
             @Override

@@ -1,6 +1,7 @@
 package com.hiepdt.dicitonaryapp.history;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.hiepdt.dicitonaryapp.R;
 import com.hiepdt.dicitonaryapp.models.Word;
+import com.hiepdt.dicitonaryapp.search.result.ResultActivity;
 
 import java.util.ArrayList;
 
@@ -33,8 +35,16 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Word word = mListWord.get(position);
+        final Word word = mListWord.get(position);
         holder.text.setText(word.getKey());
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, ResultActivity.class);
+                intent.putExtra("word", word.getKey());
+                mContext.startActivity(intent);
+            }
+        });
     }
 
     @Override
