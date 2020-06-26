@@ -76,7 +76,7 @@
             android:layout_toRightOf="@id/logo"
             android:fontFamily="@font/promptbold"
             android:gravity="center"
-            android:hint="Sora Translate"
+            android:hint="Document Translate"
             android:textColor="#fff"
             android:textColorHint="#fff"
             android:textSize="16dp" />

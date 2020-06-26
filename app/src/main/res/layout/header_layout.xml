@@ -30,7 +30,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/promptbolditalic"
-                android:text="SORA"
+                android:text="Từ điển Anh-Việt"
                 android:textColor="#fff"
                 android:textSize="16dp" />
 

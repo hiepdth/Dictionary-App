@@ -32,7 +32,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:fontFamily="@font/promptbold"
-                android:text="Sora Translate"
+                android:text="Document Translate"
                 android:textSize="16dp" />
         </LinearLayout>
 
@@ -106,7 +106,6 @@
                     android:tint="#000"
                     android:visibility="invisible" />
             </RelativeLayout>
-
 
             <ImageView
                 android:id="@+id/btnRun"
