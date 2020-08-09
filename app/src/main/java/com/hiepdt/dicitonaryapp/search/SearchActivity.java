@@ -264,35 +264,30 @@ public class SearchActivity extends AppCompatActivity {
         wave2.stop();
         wave2.setGradientAngle(45);
         checkPermission();
-        btnVoice.setOnClickListener(new View.OnClickListener() {
+        btnVoice.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onClick(View v) {
-                btnVoice.setOnTouchListener(new View.OnTouchListener() {
-                    @Override
-                    public boolean onTouch(View v, MotionEvent event) {
-                        switch (event.getAction()) {
-                            case MotionEvent.ACTION_UP:
-                                wave1.setVisibility(View.INVISIBLE);
-                                wave2.setVisibility(View.INVISIBLE);
-                                wave1.stop();
-                                wave2.stop();
-                                mSpeechRecongizer.stopListening();
-                                tvDetect.setHint("You will see the input here");
-                                break;
-                            case MotionEvent.ACTION_DOWN:
-                                tvDetect.setText("");
-                                tvDetect.setHint("Listening ... ");
-                                wave1.setVisibility(View.VISIBLE);
-                                wave2.setVisibility(View.VISIBLE);
-                                wave1.start();
-                                wave2.start();
-                                mSpeechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, LANG);
-                                mSpeechRecongizer.startListening(mSpeechRecognizerIntent);
-                                break;
-                        }
-                        return false;
-                    }
-                });
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_UP:
+                        wave1.setVisibility(View.INVISIBLE);
+                        wave2.setVisibility(View.INVISIBLE);
+                        wave1.stop();
+                        wave2.stop();
+                        mSpeechRecongizer.stopListening();
+                        tvDetect.setHint("You will see the input here");
+                        break;
+                    case MotionEvent.ACTION_DOWN:
+                        tvDetect.setText("");
+                        tvDetect.setHint("Listening ... ");
+                        wave1.setVisibility(View.VISIBLE);
+                        wave2.setVisibility(View.VISIBLE);
+                        wave1.start();
+                        wave2.start();
+                        mSpeechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, LANG);
+                        mSpeechRecongizer.startListening(mSpeechRecognizerIntent);
+                        break;
+                }
+                return false;
             }
         });
         dialog.show();

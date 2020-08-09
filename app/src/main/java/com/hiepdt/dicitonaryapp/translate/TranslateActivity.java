@@ -113,11 +113,9 @@ public class TranslateActivity extends AppCompatActivity {
 
         spinFrom.setAdapter(adapter);
         spinTo.setAdapter(adapter);
-        spinFrom.setSelectedIndex(0);
-        spinTo.setSelectedIndex(1);
+        spinFrom.setSelectedIndex(adapter.getPosition("English"));
+        spinTo.setSelectedIndex(adapter.getPosition("Vietnamese"));
 
-//        spinFrom.setText("English");
-//        spinTo.setText("Vietnamese");
 
         if (getIntent().getExtras() != null) {
             TEXT_FROM = getIntent().getExtras().getString("text", "");
@@ -288,35 +286,30 @@ public class TranslateActivity extends AppCompatActivity {
         wave2.stop();
         wave2.setGradientAngle(45);
         checkPermission();
-        btnVoice.setOnClickListener(new View.OnClickListener() {
+        btnVoice.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onClick(View v) {
-                btnVoice.setOnTouchListener(new View.OnTouchListener() {
-                    @Override
-                    public boolean onTouch(View v, MotionEvent event) {
-                        switch (event.getAction()) {
-                            case MotionEvent.ACTION_UP:
-                                wave1.setVisibility(View.INVISIBLE);
-                                wave2.setVisibility(View.INVISIBLE);
-                                wave1.stop();
-                                wave2.stop();
-                                mSpeechRecongizer.stopListening();
-                                tvDetect.setHint("You will see the input here");
-                                break;
-                            case MotionEvent.ACTION_DOWN:
-                                tvDetect.setText("");
-                                tvDetect.setHint("Listening ... ");
-                                wave1.setVisibility(View.VISIBLE);
-                                wave2.setVisibility(View.VISIBLE);
-                                wave1.start();
-                                wave2.start();
-                                mSpeechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, LANG_FROM);
-                                mSpeechRecongizer.startListening(mSpeechRecognizerIntent);
-                                break;
-                        }
-                        return false;
-                    }
-                });
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_UP:
+                        wave1.setVisibility(View.INVISIBLE);
+                        wave2.setVisibility(View.INVISIBLE);
+                        wave1.stop();
+                        wave2.stop();
+                        mSpeechRecongizer.stopListening();
+                        tvDetect.setHint("You will see the input here");
+                        break;
+                    case MotionEvent.ACTION_DOWN:
+                        tvDetect.setText("");
+                        tvDetect.setHint("Listening ... ");
+                        wave1.setVisibility(View.VISIBLE);
+                        wave2.setVisibility(View.VISIBLE);
+                        wave1.start();
+                        wave2.start();
+                        mSpeechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, LANG_FROM);
+                        mSpeechRecongizer.startListening(mSpeechRecognizerIntent);
+                        break;
+                }
+                return false;
             }
         });
         dialog.show();

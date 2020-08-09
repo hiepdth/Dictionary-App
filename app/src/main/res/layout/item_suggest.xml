@@ -3,5 +3,7 @@
     android:padding="10dp"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
+    android:background="#fff"
+    android:fontFamily="@font/promptlightitalic"
     android:textSize="16dp">
 </TextView>

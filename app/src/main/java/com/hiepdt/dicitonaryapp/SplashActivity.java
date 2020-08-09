@@ -26,17 +26,7 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
         getSupportActionBar().hide();
 
-//        APP.mListWordEng = new ArrayList<>();
-//        APP.mListWordVie = new ArrayList<>();
-//        APP.mListDictionEng = new ArrayList<>();
-//        APP.mListDictionVie = new ArrayList<>();
-//        db.readDBFromZip(SplashActivity.this, APP.mListWordEng, APP.mListDictionEng, "e_v.zip", "en", "vi");
-//        db.readDBFromZip(SplashActivity.this, APP.mListWordVie, APP.mListDictionVie, "v_e.zip", "vi", "en");
-
         new ReadDB().execute();
-//        Intent intent = new Intent(SplashActivity.this, MainActivity.class);
-//        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-//        startActivity(intent);
     }
 
     class ReadDB extends AsyncTask<Void, Void, String> {
